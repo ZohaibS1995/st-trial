@@ -13,6 +13,17 @@ import numpy as np
 import os
 from datetime import datetime 
 
+
+import pandas as pd
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate('./st-trial/firestore-key.json')
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
 # INSERT YOUR CODE 
 
 
@@ -773,42 +784,46 @@ def final_page_u():
     keys_t = st.session_state.usability_pred.keys()
     values_t = st.session_state.usability_pred.values()
 
-    t_df = pd.DataFrame(list(zip(keys_t, values_t)),
-               columns =['Name', 'Pred'])
+    for idx, t_key in enumerate(keys_t):
+        doc_ref = db.collection(st.session_state["name_user"]  + "_" + "Usability_trial_pred").documet(t_key)
+        doc_ref.set(values_t[idx])
+        
+    #t_df = pd.DataFrame(list(zip(keys_t, values_t)),
+    #           columns =['Name', 'Pred'])
     
-    t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "Usability_trial_pred.xlsx")
+    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "Usability_trial_pred.xlsx")
 
-    values_q = st.session_state.usability_questionaire.values()
+    #values_q = st.session_state.usability_questionaire.values()
 
-    t_df = pd.DataFrame(list(zip(keys_t, values_q)),
-               columns =['Name', 'Answers'])
+    #t_df = pd.DataFrame(list(zip(keys_t, values_q)),
+    #           columns =['Name', 'Answers'])
     
-    t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "Usability_trial_questionaire.xlsx")
+    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "Usability_trial_questionaire.xlsx")
 
-    values_q = st.session_state.causability_questionaire.values()
+    #values_q = st.session_state.causability_questionaire.values()
 
-    t_df = pd.DataFrame(values_q)
+    #t_df = pd.DataFrame(values_q)
 
-    t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "causability_trial_questionaire.xlsx")
+    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "causability_trial_questionaire.xlsx")
     
-    values_time = st.session_state.time_taken.values()
-    t_df = pd.DataFrame(list(zip(keys_t, values_time)),
-               columns =['Name', 'Pred'])
+    #values_time = st.session_state.time_taken.values()
+    #t_df = pd.DataFrame(list(zip(keys_t, values_time)),
+    #           columns =['Name', 'Pred'])
     
-    t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "time_usability.xlsx")
+    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "time_usability.xlsx")
 
 
-    profile_vals = [
-        st.session_state.name_user,
-        st.session_state.nationality_user,
-        st.session_state.hospital_user,
-        st.session_state.department_user, 
-        st.session_state.years_of_experience_user,
-        st.session_state.speciality_user
-    ]
+    #profile_vals = [
+    #    st.session_state.name_user,
+    #    st.session_state.nationality_user,
+    #    st.session_state.hospital_user,
+    #    st.session_state.department_user, 
+    #    st.session_state.years_of_experience_user,
+    #    st.session_state.speciality_user
+    #]
 
-    t_df = pd.DataFrame(profile_vals)
-    t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "profile.xlsx")
+    #t_df = pd.DataFrame(profile_vals)
+    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "profile.xlsx")
 
     col1, col2, col3 , col4, col5, col6 = st.columns([1,1,1,1,1,1])
     with col4:
