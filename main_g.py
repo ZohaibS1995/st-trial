@@ -929,7 +929,7 @@ if __name__ == "__main__":
 
     st.set_page_config(page_title='In silico Trial', layout="wide")
 
-    add_bg_from_local('img.jpg')    
+    #add_bg_from_local('img.jpg')    
 
     df = pd.read_csv(path_model_prediction, delimiter = ";")
 
