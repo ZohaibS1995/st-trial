@@ -19,10 +19,6 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-# Initialize Firebase Admin SDK
-cred = credentials.Certificate('firestore-key.json')
-firebase_admin.initialize_app(cred)
-db = firestore.client()
 
 # INSERT YOUR CODE 
 
@@ -779,13 +775,14 @@ def final_page_u():
             "</h1>", unsafe_allow_html=True)
     
 
+
     for key,values in st.session_state.items():
         st.write(key + ": \n" + str(values))
     keys_t = st.session_state.usability_pred.keys()
     values_t = st.session_state.usability_pred.values()
 
     for idx, t_key in enumerate(keys_t):
-        doc_ref = db.collection(st.session_state["name_user"]  + "_" + "Usability_trial_pred").documet(t_key)
+        doc_ref = st.session_state.db.collection(st.session_state["name_user"]  + "_" + "Usability_trial_pred").documet(t_key)
         doc_ref.set(values_t[idx])
         
     #t_df = pd.DataFrame(list(zip(keys_t, values_t)),
@@ -938,10 +935,16 @@ def add_bg_from_local(image_file):
     """,
     unsafe_allow_html=True
     )
-
 if __name__ == "__main__":
 
-
+    if "firebase" not in st.session_state:
+        st.session_state.firebase = True
+        # Initialize Firebase Admin SDK
+        cred = credentials.Certificate('firestore-key.json')
+        firebase_admin.initialize_app(cred)
+        st.session_state.db = firestore.client()
+    
+    
     st.set_page_config(page_title='In silico Trial', layout="wide")
 
     #add_bg_from_local('img.jpg')    
