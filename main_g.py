@@ -12,7 +12,6 @@ from PIL import Image
 import numpy as np
 import os
 from datetime import datetime 
-import streamlit_authenticator as stauth
 
 # INSERT YOUR CODE 
 
