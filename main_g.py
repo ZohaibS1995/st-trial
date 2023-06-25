@@ -950,7 +950,7 @@ if __name__ == "__main__":
     values_t = [1, 1, 0, 0]
 
     for idx, t_key in enumerate(keys_t):
-        doc_ref = st.session_state.db.collection("test"  + "_" + "Usability_trial_pred").documet(t_key)
+        doc_ref = st.session_state.db.collection("test"  + "_" + "Usability_trial_pred").document(t_key)
         doc_ref.set(values_t[idx])
 
 
