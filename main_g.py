@@ -59,8 +59,7 @@ def plus_one():
 
 def plus_one_ai():
 
-    st.write(st.session_state.id)
-    st.write(len(st.session_state.image_names))
+ 
     #st.session_state.page_no = 1
     st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
 
@@ -380,6 +379,10 @@ def ai_trial():
     return   
 
 def ai_trial_explanations():
+
+    st.write(st.session_state.id)
+    st.write(len(st.session_state.image_names))
+
     st.markdown(
         """<style>
     div[class*="stRadio"] > label > div[data-testid="stMarkdownContainer"] > p {
