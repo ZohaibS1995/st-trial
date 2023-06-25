@@ -159,7 +159,7 @@ def info_page():
                     "</h1>", unsafe_allow_html=True)
 
         st.markdown("<h2 style='text-align: center; color: red'>"
-                    "*In silico* Clinical and Usability Trial"
+                    "In silico Clinical and Usability Trial"
                     "</h2>", unsafe_allow_html=True)
                    
         st.subheader("Enter Details Below")
