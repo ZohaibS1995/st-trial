@@ -826,7 +826,7 @@ def final_page_u():
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("usability_trial_time")
     doc_ref.set(dict_time)
 
-
+    # Saving profile information
     values_t = [
         st.session_state.name_user,
         st.session_state.nationality_user,
@@ -872,21 +872,33 @@ def final_page_a():
             "Press the home button to go the home page."
             "</h1>", unsafe_allow_html=True)
     
-    keys_t = st.session_state.ai_trial.keys()
-    values_t = st.session_state.ai_trial.values()
+    # Usability Prediction
+    keys_t = list(st.session_state.ai_trial.keys())
+    values_t = list(st.session_state.ai_trial.values())
 
-    t_df = pd.DataFrame(list(zip(keys_t, values_t)),
-               columns =['Name', 'Pred'])
+    dict_ai_trial_pred = {}
     
-    t_df = t_df.to_excel(st.session_state["name_user"] + "_" + "ai_trial_pred.xlsx")
+    for idx, val in enumerate(keys_t):
+        dict_ai_trial_pred[str(val)] = str(values_t[idx])
 
-    values_time = st.session_state.time_taken.values()
-    t_df = pd.DataFrame(list(zip(keys_t, values_time)),
-               columns =['Name', 'Pred'])
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("ai_trial_results")
+    doc_ref.set(dict_ai_trial_pred)
+
+
+    # Time taken 
+
+    values_t = list(st.session_state.time_taken.values())
+    keys_t = list(st.session_state.ai_trial.keys())
+    dict_time = {}
     
-    t_df = t_df.to_excel(st.session_state["name_user"] + "_" + "time_ai_only_trial.xlsx")
+    for idx, val in enumerate(keys_t):
+        dict_time[str(val)] = str(values_t[idx])
+    
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("ai_trial_time")
+    doc_ref.set(dict_time)
 
-    profile_vals = [
+    # Saving profile information
+    values_t = [
         st.session_state.name_user,
         st.session_state.nationality_user,
         st.session_state.hospital_user,
@@ -894,9 +906,22 @@ def final_page_a():
         st.session_state.years_of_experience_user,
         st.session_state.speciality_user
     ]
+    keys_t = [
+        "user_name",
+        "nationality_user",
+        "hospital_user",
+        "department_user",
+        "years of experience user",
+        "user speciality"
+    ]
 
-    t_df = pd.DataFrame(profile_vals)
-    t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "profile.xlsx")
+    dict_profile = {}
+    
+    for idx, val in enumerate(keys_t):
+        dict_profile[str(val)] = str(values_t[idx])
+    
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("profile")
+    doc_ref.set(dict_profile)
 
     col1, col2, col3 , col4, col5, col6 = st.columns([1,1,1,1,1,1])
     with col4:
@@ -918,21 +943,33 @@ def final_page_ex():
             "Press the home button to go the home page."
             "</h1>", unsafe_allow_html=True)
     
-    keys_t = st.session_state.ai_exp_trial.keys()
-    values_t = st.session_state.ai_exp_trial.values()
+    # AI Exp Prediction
+    keys_t = list(st.session_state.ai_exp_trial.keys())
+    values_t = list(st.session_state.ai_exp_trial.values())
 
-    t_df = pd.DataFrame(list(zip(keys_t, values_t)),
-               columns =['Name', 'Pred'])
+    dict_ai_exp_trial = {}
     
-    t_df = t_df.to_excel(st.session_state.name_user + "_" + "ai_ex_pred.xlsx")
+    for idx, val in enumerate(keys_t):
+        dict_ai_exp_trial[str(val)] = str(values_t[idx])
 
-    values_time = st.session_state.time_taken.values()
-    t_df = pd.DataFrame(list(zip(keys_t, values_time)),
-               columns =['Name', 'Pred'])
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("ai_exp_trial_results")
+    doc_ref.set(dict_ai_exp_trial)
+
+
+    # Time taken 
+
+    values_t = list(st.session_state.time_taken.values())
+    keys_t = list(st.session_state.ai_exp_trial.keys())
+    dict_time = {}
     
-    t_df = t_df.to_excel(st.session_state.name_user + "_" + "time_ai_explainability_trial.xlsx")
+    for idx, val in enumerate(keys_t):
+        dict_time[str(val)] = str(values_t[idx])
+    
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("ai_exp_trial_time")
+    doc_ref.set(dict_time)
 
-    profile_vals = [
+    # Saving profile information
+    values_t = [
         st.session_state.name_user,
         st.session_state.nationality_user,
         st.session_state.hospital_user,
@@ -940,9 +977,22 @@ def final_page_ex():
         st.session_state.years_of_experience_user,
         st.session_state.speciality_user
     ]
+    keys_t = [
+        "user_name",
+        "nationality_user",
+        "hospital_user",
+        "department_user",
+        "years of experience user",
+        "user speciality"
+    ]
 
-    t_df = pd.DataFrame(profile_vals)
-    t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "profile.xlsx")
+    dict_profile = {}
+    
+    for idx, val in enumerate(keys_t):
+        dict_profile[str(val)] = str(values_t[idx])
+    
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("profile")
+    doc_ref.set(dict_profile)
 
     col1, col2, col3 , col4, col5, col6 = st.columns([1,1,1,1,1,1])
     with col4:
