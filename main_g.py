@@ -59,9 +59,8 @@ def plus_one():
 
 def plus_one_ai():
 
- 
-    #st.session_state.page_no = 1
-    st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
+    if st.session_state.id < 80:
+        st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
 
     if st.session_state.id < len(st.session_state.image_names):
         st.session_state.id += 1
@@ -71,8 +70,8 @@ def plus_one_ai():
     return
 
 def plus_one_ai_exp():
-    #st.session_state.page_no = 1
-    st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
+    if st.session_state.id < 80:
+        st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
 
     if st.session_state.id < len(st.session_state.image_names):
         st.session_state.id += 1
@@ -956,6 +955,8 @@ def final_page_ex():
     keys_t = list(st.session_state.image_names)
     values_t = list(st.session_state.ai_exp_trial.values())
 
+    st.write(keys_t)
+    st.write(values_t)
     dict_ai_exp_trial = {}
     
     for idx, val in enumerate(keys_t):
@@ -971,6 +972,9 @@ def final_page_ex():
     keys_t = list(st.session_state.image_names)
     dict_time = {}
     
+
+    st.write(keys_t)
+    st.write(values_t)
     for idx, val in enumerate(keys_t):
         dict_time[str(val)] = str(values_t[idx])
     
