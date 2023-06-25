@@ -952,7 +952,7 @@ if __name__ == "__main__":
         "Net Worth" : 100000
     }
 
-    obj2 = {"Name": [0,1,2,3,4]}
+    obj2 = {"Name": "[0,1,2,3,4]"}
 
     data = [obj1, obj2]
 
