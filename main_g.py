@@ -961,7 +961,7 @@ if __name__ == "__main__":
     data = [obj1, obj2]
 
     for record in data:
-        doc_ref = db.Collections(u"Users").document(record["Name"])
+        doc_ref = st.session_state["db"].collection(u"Users").document(record["Name"])
         doc_ref.set(record)
 
     #keys_t = ["Zohaib", "Kiran", "Xian", "Yi"]
