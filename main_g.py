@@ -949,14 +949,10 @@ if __name__ == "__main__":
     obj1 = {
         "Name": "Zohaib ",
         "Age": "28",
-        "Net Worth" : "100000"
+        "Net Worth" : 100000
     }
 
-    obj2 = {
-        "Name": "Kiran ",
-        "Age": "29",
-        "Net Worth" : "100000"
-    }
+    obj2 = {"Name": [0,1,2,3,4]}
 
     data = [obj1, obj2]
 
