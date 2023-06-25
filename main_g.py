@@ -776,8 +776,8 @@ def final_page_u():
     
 
 
-    keys_t = st.session_state.usability_pred.keys()
-    values_t = st.session_state.usability_pred.values()
+    keys_t = list(st.session_state.usability_pred.keys())
+    values_t = list(st.session_state.usability_pred.values())
 
     st.write(values_t)
     st.write(keys_t)
