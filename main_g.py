@@ -153,6 +153,11 @@ def info_page():
     col1, col2, col3 = st.columns([2, 4, 2])
 
     with col2: 
+        
+        st.markdown("<h1 style='text-align: center;'>"
+                    "Post-Hepatectomy Liver Failure Prediction Based on 2D-SWE images and Clinical Variables with"
+                    " an Interpretable Deep Learning Framework"
+                    "</h1>", unsafe_allow_html=True)
         st.title("*In silico* Clinical and Usability Trial")
         st.subheader("Enter Details Below")
         with st.form("form1"):
