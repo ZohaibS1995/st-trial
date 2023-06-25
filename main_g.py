@@ -786,7 +786,7 @@ def final_page_u():
     for idx, val in enumerate(keys_t):
         dict_usability[str(val)] = str(values_t[idx])
 
-    doc_ref = st.session_state["db"].collection(u"Usability").document("prediction_results")
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("usability_prediction_results")
     doc_ref.set(dict_usability)
 
     
