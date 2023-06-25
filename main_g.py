@@ -965,7 +965,6 @@ def final_page_ex():
 
 
     # Time taken 
-
     values_t = list(st.session_state.time_taken.values())
     keys_t = list(st.session_state.image_names)
     dict_time = {}
@@ -1037,7 +1036,7 @@ if __name__ == "__main__":
 
     st.set_page_config(page_title='In silico Trial', layout="wide")
 
-    #add_bg_from_local('img.jpg')    
+    add_bg_from_local('img.jpg')    
 
     df = pd.read_csv(path_model_prediction, delimiter = ";")
 
