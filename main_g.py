@@ -941,7 +941,8 @@ if __name__ == "__main__":
         st.session_state.firebase = True
         # Initialize Firebase Admin SDK
         cred = credentials.Certificate('firestore-key.json')
-        firebase_admin.initialize_app(cred, name="st-trial")
+        if not firebase_admin._apps:
+            firebase_admin.initialize_app(cred, name="st-trial")
         st.session_state["db"] = firestore.client()
     
 
