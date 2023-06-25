@@ -776,17 +776,17 @@ def final_page_u():
     
 
 
-    for key,values in st.session_state.items():
-        st.write(key + ": \n" + str(values))
     keys_t = st.session_state.usability_pred.keys()
     values_t = st.session_state.usability_pred.values()
 
-    for idx, t_key in enumerate(keys_t):
-        doc_ref = st.session_state.db.collection(st.session_state["name_user"]  + "_" + "Usability_trial_pred").documet(t_key)
-        doc_ref.set(values_t[idx])
-        
-    #t_df = pd.DataFrame(list(zip(keys_t, values_t)),
-    #           columns =['Name', 'Pred'])
+    dict_usability = {}
+    
+    for idx, val in enumerate(keys_t):
+        dict_usability[val] = values_t[idx]
+
+    doc_ref = st.session_state["db"].collection(u"Usability").document("prediction_results")
+    doc_ref.set(dict_usability)
+
     
     #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "Usability_trial_pred.xlsx")
 
