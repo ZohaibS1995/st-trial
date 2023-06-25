@@ -870,8 +870,8 @@ def final_page_a():
             "Press the home button to go the home page."
             "</h1>", unsafe_allow_html=True)
     
-    # Usability Prediction
-    keys_t = list(st.session_state.ai_trial.keys())
+    # AI Prediction
+    keys_t = list(st.session_state.image_names)
     values_t = list(st.session_state.ai_trial.values())
 
     dict_ai_trial_pred = {}
@@ -888,7 +888,7 @@ def final_page_a():
     # Time taken 
 
     values_t = list(st.session_state.time_taken.values())
-    keys_t = list(st.session_state.ai_trial.keys())
+    keys_t = list(st.session_state.image_names)
     dict_time = {}
     
     for idx, val in enumerate(keys_t):
@@ -947,7 +947,7 @@ def final_page_ex():
             "</h1>", unsafe_allow_html=True)
     
     # AI Exp Prediction
-    keys_t = list(st.session_state.ai_exp_trial.keys())
+    keys_t = list(st.session_state.image_names)
     values_t = list(st.session_state.ai_exp_trial.values())
 
     dict_ai_exp_trial = {}
@@ -962,7 +962,7 @@ def final_page_ex():
     # Time taken 
 
     values_t = list(st.session_state.time_taken.values())
-    keys_t = list(st.session_state.ai_exp_trial.keys())
+    keys_t = list(st.session_state.image_names)
     dict_time = {}
     
     for idx, val in enumerate(keys_t):
