@@ -752,8 +752,8 @@ def system_causability_scale():
 
 def go_home():
 
-    for key,val in st.session_state.items():
-        del st.session_state[key]
+    #for key,val in st.session_state.items():
+    #    del st.session_state[key]
     st.session_state.id = 0
     st.session_state.page_no = 0
     return 
