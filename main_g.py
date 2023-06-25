@@ -58,6 +58,9 @@ def plus_one():
     return
 
 def plus_one_ai():
+
+    st.write(st.session_state.id)
+    st.write(len(st.session_state.image_names))
     #st.session_state.page_no = 1
     st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
 
