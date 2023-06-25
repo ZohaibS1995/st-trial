@@ -752,8 +752,8 @@ def system_causability_scale():
 
 def go_home():
 
-    #for key,val in st.session_state.items():
-    #    del st.session_state[key]
+    for key,val in st.session_state.items():
+        del st.session_state[key]
     st.session_state.id = 0
     st.session_state.page_no = 0
     return 
@@ -882,6 +882,8 @@ def final_page_a():
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("ai_trial_results")
     doc_ref.set(dict_ai_trial_pred)
 
+    st.write(keys_t)
+    st.write(values_t)
 
     # Time taken 
 
@@ -894,6 +896,9 @@ def final_page_a():
     
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("ai_trial_time")
     doc_ref.set(dict_time)
+
+    st.write(keys_t)
+    st.write(values_t)
 
     # Saving profile information
     values_t = [
