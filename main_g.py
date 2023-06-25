@@ -153,12 +153,15 @@ def info_page():
     col1, col2, col3 = st.columns([2, 4, 2])
 
     with col2: 
-        
         st.markdown("<h1 style='text-align: center;'>"
                     "Post-Hepatectomy Liver Failure Prediction Based on 2D-SWE images and Clinical Variables with"
                     " an Interpretable Deep Learning Framework"
                     "</h1>", unsafe_allow_html=True)
-        st.title("*In silico* Clinical and Usability Trial")
+
+        st.markdown("<h2 style='text-align: center; color: red'>"
+                    "*In silico* Clinical and Usability Trial"
+                    "</h2>", unsafe_allow_html=True)
+                   
         st.subheader("Enter Details Below")
         with st.form("form1"):
             st.text_input("Full Name", key="name")
@@ -306,8 +309,8 @@ def usability_page():
 
     col1, col2, col3 = st.columns([1,7,1])
 
-    with col1:
-        button_back = st.button("Back", on_click=minus_one, key="minus_one")
+    #with col1:
+    #    button_back = st.button("Back", on_click=minus_one, key="minus_one")
     with col3:
         button_next = st.button("Next", on_click=question_page, key="q_page")
     return
@@ -376,16 +379,13 @@ def ai_trial():
 
     col1, col2, col3 = st.columns([1,7,1])
 
-    with col1:
-        button_back = st.button("Back", on_click=minus_one, key="minus_one")
+    #with col1:
+    #    button_back = st.button("Back", on_click=minus_one, key="minus_one")
     with col3:
         button_next = st.button("Next", on_click=plus_one_ai, key="plus_one_ai")
     return   
 
 def ai_trial_explanations():
-
-    st.write(st.session_state.id)
-    st.write(len(st.session_state.image_names))
 
     st.markdown(
         """<style>
@@ -453,8 +453,8 @@ def ai_trial_explanations():
     
     col1, col2, col3 = st.columns([1,7,1])
 
-    with col1:
-        button_back = st.button("Back", on_click=minus_one, key="minus_one")
+    #with col1:
+        #button_back = st.button("Back", on_click=minus_one, key="minus_one")
     with col3:
         button_next = st.button("Next", on_click=plus_one_ai_exp, key="plus_one_ai_exp")
     return   
@@ -892,8 +892,6 @@ def final_page_a():
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("ai_trial_results")
     doc_ref.set(dict_ai_trial_pred)
 
-    st.write(keys_t)
-    st.write(values_t)
 
     # Time taken 
 
@@ -906,9 +904,6 @@ def final_page_a():
     
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("ai_trial_time")
     doc_ref.set(dict_time)
-
-    st.write(keys_t)
-    st.write(values_t)
 
     # Saving profile information
     values_t = [
@@ -960,8 +955,6 @@ def final_page_ex():
     keys_t = list(st.session_state.image_names)
     values_t = list(st.session_state.ai_exp_trial.values())
 
-    st.write(keys_t)
-    st.write(values_t)
     dict_ai_exp_trial = {}
     
     for idx, val in enumerate(keys_t):
@@ -978,8 +971,6 @@ def final_page_ex():
     dict_time = {}
     
 
-    st.write(keys_t)
-    st.write(values_t)
     for idx, val in enumerate(keys_t):
         dict_time[str(val)] = str(values_t[idx])
     
@@ -1043,28 +1034,6 @@ if __name__ == "__main__":
             firebase_admin.initialize_app(cred, name="st-trial")
         st.session_state["db"] = firestore.client()
     
-
-    obj1 = {
-        "Name": "Zohaib ",
-        "Age": "28",
-        "Net Worth" : 100000
-    }
-
-    obj2 = {"Name": "[0,1,2,3,4]"}
-
-    data = [obj1, obj2]
-
-    for record in data:
-        doc_ref = st.session_state["db"].collection(u"Users").document(record["Name"])
-        doc_ref.set(record)
-
-    #keys_t = ["Zohaib", "Kiran", "Xian", "Yi"]
-    #values_t = [1, 1, 0, 0]
-
-    #for idx, t_key in enumerate(keys_t):
-    #    doc_ref = st.session_state.db.collection("test"  + "_" + "Usability_trial_pred").document(t_key)
-    #    doc_ref.set(values_t[idx])
-
 
     st.set_page_config(page_title='In silico Trial', layout="wide")
 
