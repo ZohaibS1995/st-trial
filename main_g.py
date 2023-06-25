@@ -937,12 +937,12 @@ def add_bg_from_local(image_file):
     )
 if __name__ == "__main__":
 
-    #if "firebase" not in st.session_state:
-    #    st.session_state.firebase = True
+    if "firebase" not in st.session_state:
+        st.session_state.firebase = True
         # Initialize Firebase Admin SDK
-    #    cred = credentials.Certificate('firestore-key.json')
-    #    firebase_admin.initialize_app(cred)
-    #    st.session_state.db = firestore.client()
+        cred = credentials.Certificate('firestore-key.json')
+        firebase_admin.initialize_app(cred)
+        st.session_state.db = firestore.client()
     
     
     st.set_page_config(page_title='In silico Trial', layout="wide")
