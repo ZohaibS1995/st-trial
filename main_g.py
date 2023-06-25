@@ -779,10 +779,12 @@ def final_page_u():
     keys_t = st.session_state.usability_pred.keys()
     values_t = st.session_state.usability_pred.values()
 
+    st.write(values_t)
+    st.write(keys_t)
     dict_usability = {}
     
     for idx, val in enumerate(keys_t):
-        dict_usability[val] = values_t[idx]
+        dict_usability[str(val)] = str(values_t[idx])
 
     doc_ref = st.session_state["db"].collection(u"Usability").document("prediction_results")
     doc_ref.set(dict_usability)
