@@ -775,12 +775,10 @@ def final_page_u():
             "</h1>", unsafe_allow_html=True)
     
 
-
+    # Usability Prediction
     keys_t = list(st.session_state.usability_pred.keys())
     values_t = list(st.session_state.usability_pred.values())
 
-    st.write(values_t)
-    st.write(keys_t)
     dict_usability = {}
     
     for idx, val in enumerate(keys_t):
@@ -789,40 +787,70 @@ def final_page_u():
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("usability_prediction_results")
     doc_ref.set(dict_usability)
 
+    # Usability Questionaire results
+    values_t = list(st.session_state.usability_questionaire.values())
+    keys_t = list(st.session_state.usability_pred.keys())
+    #keys_t = [str(x) for x in range(len(values_t))]
+
+    dict_trial_questionaire = {}
     
-    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "Usability_trial_pred.xlsx")
+    for idx, val in enumerate(keys_t):
+        dict_trial_questionaire[str(val)] = str(values_t[idx])
 
-    #values_q = st.session_state.usability_questionaire.values()
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("usability_trial_questionaire")
+    doc_ref.set(dict_trial_questionaire)
 
-    #t_df = pd.DataFrame(list(zip(keys_t, values_q)),
-    #           columns =['Name', 'Answers'])
+
+
+    # Causability Questionaire results
+    values_t = list(st.session_state.causability_questionaire.values())
+    keys_t = [str(x) for x in range(len(values_t))]
+
+    dict_causability_questionaire = {}
     
-    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "Usability_trial_questionaire.xlsx")
+    for idx, val in enumerate(keys_t):
+        dict_causability_questionaire[str(val)] = str(values_t[idx])
 
-    #values_q = st.session_state.causability_questionaire.values()
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("causability_questionaire")
+    doc_ref.set(dict_causability_questionaire)
 
-    #t_df = pd.DataFrame(values_q)
+    # Time taken 
 
-    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "causability_trial_questionaire.xlsx")
+    values_t = list(st.session_state.time_taken.values())
+    keys_t = list(st.session_state.usability_pred.keys())
+    dict_time = {}
     
-    #values_time = st.session_state.time_taken.values()
-    #t_df = pd.DataFrame(list(zip(keys_t, values_time)),
-    #           columns =['Name', 'Pred'])
+    for idx, val in enumerate(keys_t):
+        dict_time[str(val)] = str(values_t[idx])
     
-    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "time_usability.xlsx")
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("usability_trial_time")
+    doc_ref.set(dict_time)
 
 
-    #profile_vals = [
-    #    st.session_state.name_user,
-    #    st.session_state.nationality_user,
-    #    st.session_state.hospital_user,
-    #    st.session_state.department_user, 
-    #    st.session_state.years_of_experience_user,
-    #    st.session_state.speciality_user
-    #]
+    values_t = [
+        st.session_state.name_user,
+        st.session_state.nationality_user,
+        st.session_state.hospital_user,
+        st.session_state.department_user, 
+        st.session_state.years_of_experience_user,
+        st.session_state.speciality_user
+    ]
+    keys_t = [
+        "user_name",
+        "nationality_user",
+        "hospital_user",
+        "department_user",
+        "years of experience user",
+        "user speciality"
+    ]
 
-    #t_df = pd.DataFrame(profile_vals)
-    #t_df = t_df.to_excel(st.session_state["name_user"]  + "_" + "profile.xlsx")
+    dict_profile = {}
+    
+    for idx, val in enumerate(keys_t):
+        dict_profile[str(val)] = str(values_t[idx])
+    
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("usability_profile")
+    doc_ref.set(dict_profile)
 
     col1, col2, col3 , col4, col5, col6 = st.columns([1,1,1,1,1,1])
     with col4:
