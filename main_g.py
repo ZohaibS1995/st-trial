@@ -215,8 +215,6 @@ def landing_page():
     button2 = st.button("Clinical trial: only AI", on_click = sel_ai_trial, key="s_a")
     button3 = st.button("Clinical trial: AI+explanation", on_click= sel_ai_exp_trial, key="s_ex_a")
 
-    for key, items in st.session_state.items():
-        st.write(key + ": \n" + str(st.session_state[key]))
 
     col1, col2, col3 = st.columns([2, 4, 2])
 
