@@ -48,7 +48,7 @@ st_file_name = "default"
 
 def plus_one():
     #st.session_state.page_no = 1
-    st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
+    st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = datetime.now() - st.session_state.start_time
     st.session_state.start_time = datetime.now()
 
     if st.session_state.id < len(st.session_state.image_names):
@@ -61,7 +61,7 @@ def plus_one():
 def plus_one_ai():
 
     if st.session_state.id < 80:
-        st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
+        st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = datetime.now() - st.session_state.start_time
         st.session_state.start_time = datetime.now()
 
     if st.session_state.id < len(st.session_state.image_names):
@@ -73,7 +73,7 @@ def plus_one_ai():
 
 def plus_one_ai_exp():
     if st.session_state.id < 80:
-        st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
+        st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = datetime.now() - st.session_state.start_time
         st.session_state.start_time = datetime.now()
     if st.session_state.id < len(st.session_state.image_names):
         st.session_state.id += 1
@@ -83,7 +83,7 @@ def plus_one_ai_exp():
     return
 
 def plus_one_u():
-    st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
+    st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = datetime.now() - st.session_state.start_time
     st.session_state.start_time = datetime.now()
 
     st.session_state.page_no = 1
