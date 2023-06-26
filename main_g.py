@@ -305,7 +305,7 @@ def usability_page():
     col1, col2, col3 = st.columns([4,4,4])
 
     with col1:
-        st.radio("3- Select your prediction of PHLF Risk", ("High risk of PHLF", "low risk of PHLF"), key="u_pred")
+        st.radio("3- Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="u_pred")
 
     st.session_state.usability_pred["{:03d}".format(int(st.session_state.u_name[st.session_state.id])) + ".png"] = st.session_state.u_pred
 
@@ -374,7 +374,7 @@ def ai_trial():
     col1, col2, col3 = st.columns([4,4,4])
 
     with col1:
-        st.radio("2- Select your prediction of PHLF Risk", ("High risk of PHLF", "low risk of PHLF"), key="ai_pred")
+        st.radio("2- Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="ai_pred")
 
     st.session_state.ai_trial[st.session_state.image_names[st.session_state.id]] = st.session_state.ai_pred
 
@@ -447,7 +447,7 @@ def ai_trial_explanations():
     col1, col2, col3 = st.columns([4,4,4])
 
     with col1:
-        st.radio("3- Select your prediction of PHLF Risk", ("High risk of PHLF", "low risk of PHLF"), key="ai_exp_pred")
+        st.radio("3- Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="ai_exp_pred")
 
     st.session_state.ai_exp_trial[st.session_state.image_names[st.session_state.id]] = st.session_state.ai_exp_pred
     
