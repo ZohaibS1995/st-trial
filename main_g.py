@@ -49,6 +49,7 @@ st_file_name = "default"
 def plus_one():
     #st.session_state.page_no = 1
     st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
+    st.session_state.start_time = datetime.now()
 
     if st.session_state.id < len(st.session_state.image_names):
         st.session_state.id += 1
@@ -61,6 +62,7 @@ def plus_one_ai():
 
     if st.session_state.id < 80:
         st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
+        st.session_state.start_time = datetime.now()
 
     if st.session_state.id < len(st.session_state.image_names):
         st.session_state.id += 1
@@ -72,7 +74,7 @@ def plus_one_ai():
 def plus_one_ai_exp():
     if st.session_state.id < 80:
         st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
-
+        st.session_state.start_time = datetime.now()
     if st.session_state.id < len(st.session_state.image_names):
         st.session_state.id += 1
         st.session_state.pred_mod_page1 = False
@@ -82,6 +84,7 @@ def plus_one_ai_exp():
 
 def plus_one_u():
     st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = "{}".format(datetime.now() - st.session_state.start_time)
+    st.session_state.start_time = datetime.now()
 
     st.session_state.page_no = 1
     if st.session_state.id < 6: #len(st.session_state.image_names) - 1 :
@@ -857,7 +860,7 @@ def final_page_u():
     for idx, val in enumerate(keys_t):
         dict_profile[str(val)] = str(values_t[idx])
     
-    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("usability_profile")
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"] ).document("profile")
     doc_ref.set(dict_profile)
 
     col1, col2, col3 , col4, col5, col6 = st.columns([1,1,1,1,1,1])
