@@ -171,8 +171,8 @@ def info_page():
             st.text_input("Nationality", key = "nationality")
             st.text_input("Hospital", key = "hospital")
             st.text_input("Department", key = "department")
-            st.text_input("Years of Working Experience", key = "years_of_experience")
             st.text_input("Speciality", key= "speciality")
+            st.text_input("Years of Working Experience in speciality ", key = "years_of_experience")
             st.form_submit_button("Submit", on_click=go_to_landing_page)
     
         if st.session_state.required_flag:
