@@ -83,7 +83,7 @@ def plus_one_ai_exp():
     return
 
 def plus_one_u():
-    st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = datetime.now() - st.session_state.start_time
+    st.session_state.time_taken[st.session_state.u_name[st.session_state.id]] = datetime.now() - st.session_state.start_time
     st.session_state.start_time = datetime.now()
 
     st.session_state.page_no = 1
