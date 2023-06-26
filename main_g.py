@@ -828,7 +828,7 @@ def final_page_u():
     # Time taken 
 
     values_t = list(st.session_state.time_taken.values())
-    keys_t = list(st.session_state.usability_pred.keys())
+    keys_t = list(st.session_state.time_taken.keys())
     dict_time = {}
     
     for idx, val in enumerate(keys_t):
@@ -899,7 +899,7 @@ def final_page_a():
     # Time taken 
 
     values_t = list(st.session_state.time_taken.values())
-    keys_t = list(st.session_state.image_names)
+    keys_t = list(st.session_state.time_taken.keys())
     dict_time = {}
     
     for idx, val in enumerate(keys_t):
@@ -969,7 +969,7 @@ def final_page_ex():
 
     # Time taken 
     values_t = list(st.session_state.time_taken.values())
-    keys_t = list(st.session_state.image_names)
+    keys_t = list(st.session_state.time_taken.keys())
     dict_time = {}
     
 
