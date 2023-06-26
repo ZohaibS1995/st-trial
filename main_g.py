@@ -265,7 +265,7 @@ def usability_page():
         """, unsafe_allow_html=True)  
 
     st.session_state.page_no = 1
-
+    st.write(st.session_state.image_names[st.session_state.id])
     st.write("## Usability Trial: " + str(st.session_state.id+1) + "/6")
 
     st.write("---")
@@ -337,7 +337,7 @@ def ai_trial():
         """, unsafe_allow_html=True)  
 
     st.session_state.page_no = 2
-
+    st.write(st.session_state.image_names[st.session_state.id])
     st.write("## AI + Clinicians Trial: " + str(st.session_state.id+1) + "/" + str(len(st.session_state.image_names)))
     st.write("---")
 
@@ -407,7 +407,7 @@ def ai_trial_explanations():
         </style>
         """, unsafe_allow_html=True)  
     st.session_state.page_no = 3
-
+    st.write(st.session_state.image_names[st.session_state.id])
     st.write("## AI + Clinicians + Explanations Trial: " + str(st.session_state.id+1) + "/" + str(len(st.session_state.image_names)))
     st.write("---")
 
@@ -704,53 +704,53 @@ def system_causability_scale():
     # Block1
     st.markdown('**1. Strongly disagree 2. Disagree 3. Neither agree nor disagree 4. Agree 5. Strongly agree**')
     with st.container():
-        option1 = st.radio("1. I found that the data included all relevant known causal factors with sufficient precision and granularity",
+        option1 = st.radio("1) I found that the data included all relevant known causal factors with sufficient precision and granularity",
                         ("1", "2", "3", "4", "5"), key="radio1", horizontal=True)
 
     # Block2
     with st.container():
-        option2 = st.radio("2. I understood the explanations within the context of my work.", ("1", "2", "3", "4", "5"), key="radio2"
+        option2 = st.radio("2) I understood the explanations within the context of my work.", ("1", "2", "3", "4", "5"), key="radio2"
                         , horizontal=True)
 
     # Block3
     with st.container():
-        option3 = st.radio("3. I could change the level of detail on demand.", ("1", "2", "3", "4", "5"), key="radio3"
+        option3 = st.radio("3) I could change the level of detail on demand.", ("1", "2", "3", "4", "5"), key="radio3"
                         , horizontal=True)
 
     # Block4
     with st.container():
-        option4 = st.radio("4. I did not need support to understand the explanations.",
+        option4 = st.radio("4) I did not need support to understand the explanations.",
                         ("1", "2", "3", "4", "5"), key="radio4", horizontal=True)
 
     # Block5
     with st.container():
-        option5 = st.radio("5. I found the explanations helped me to understand causality", ("1", "2", "3", "4", "5"),
+        option5 = st.radio("5) I found the explanations helped me to understand causality", ("1", "2", "3", "4", "5"),
                         key="radio5", horizontal=True)
 
         
     # Block6
     with st.container():
-        optionl1 = st.radio("6. I was able to use the explanations with my knowledge base.",
+        optionl1 = st.radio("6) I was able to use the explanations with my knowledge base.",
                         ("1", "2", "3", "4", "5"), key="radiol1", horizontal=True)
 
     # Block7
     with st.container():
-        optionl2 = st.radio("7. I did not find inconsistencies between explanations", ("1", "2", "3", "4", "5"), key="radiol2"
+        optionl2 = st.radio("7) I did not find inconsistencies between explanations", ("1", "2", "3", "4", "5"), key="radiol2"
                         , horizontal=True)
 
     # Block8
     with st.container():
-        optionl3 = st.radio("8. I think that most people would learn to understand the explanations very quickly", ("1", "2", "3", "4", "5"), key="radiol3"
+        optionl3 = st.radio("8) I think that most people would learn to understand the explanations very quickly", ("1", "2", "3", "4", "5"), key="radiol3"
                         , horizontal=True)
 
     # Block9
     with st.container():
-        optionl4 = st.radio("9. I did not need more references in the explanations: e.g., medical guidelines, regulations.",
+        optionl4 = st.radio("9) I did not need more references in the explanations: e.g., medical guidelines, regulations.",
                         ("1", "2", "3", "4", "5"), key="radiol4", horizontal=True)
 
     # Block10
     with st.container():
-        optionl5 = st.radio("10. I received the explanations in a timely and efficient manner.",
+        optionl5 = st.radio("10) I received the explanations in a timely and efficient manner.",
                         ("1", "2", "3", "4", "5"), key="radiol5", horizontal=True)
 
     col1, col2, col3 = st.columns([1,7,1])
@@ -785,7 +785,6 @@ def final_page_u():
             "Press the home button to go the home page."
             "</h1>", unsafe_allow_html=True)
     
-
     # Usability Prediction
     keys_t = list(st.session_state.usability_pred.keys())
     values_t = list(st.session_state.usability_pred.values())
