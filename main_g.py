@@ -1028,7 +1028,7 @@ if __name__ == "__main__":
     
     if firebase_admin._apps:
         for key,val in firebase_admin._apps.items():
-            firebase_admin.delete_app(firebase_admin.get_app(name="key"))
+            firebase_admin.delete_app(firebase_admin.get_app(name=key))
             
     st.write(firebase_admin._apps)
 
