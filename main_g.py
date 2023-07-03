@@ -1026,7 +1026,7 @@ if __name__ == "__main__":
     
 
 
-    if not st.session_state.firebase:
+    if "firebase" not in st.session_state:
         cred = credentials.Certificate('firestore-key.json')
         firebase_admin.initialize_app(cred, name="st-trial")
         
