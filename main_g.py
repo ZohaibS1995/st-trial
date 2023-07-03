@@ -1023,8 +1023,12 @@ def add_bg_from_local(image_file):
     unsafe_allow_html=True
     )
 if __name__ == "__main__":
-    st.write(firebase_admin._apps)
-    
+
+
+    if firebase_admin._apps:
+        for key,val in firebase_admin._apps:
+            firebase_admin.delete_app(firebase_admin.get_app())
+            
     if not firebase_admin._apps:
         cred = credentials.Certificate('firestore-key.json')
         firebase_admin.initialize_app(cred, name="st-trial-2")
