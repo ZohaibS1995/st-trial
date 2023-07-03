@@ -1024,17 +1024,13 @@ def add_bg_from_local(image_file):
     )
 if __name__ == "__main__":
     
-
-
-    if "firebase" not in st.session_state:
-        cred = credentials.Certificate('firestore-key.json')
-        firebase_admin.initialize_app(cred, name="st-trial-1")
-        
-    st.session_state["db"] = firestore.client()
-    
     if "firebase" not in st.session_state:
         st.session_state.firebase = True
-        # Initialize Firebase Admin SDK
+        cred = credentials.Certificate('firestore-key.json')
+        if not firebase_admin.__apps:
+            firebase_admin.initialize_app(cred, name="st-trial-1")
+        
+    st.session_state["db"] = firestore.client()
 
     st.set_page_config(page_title='In silico Trial', layout="wide")
 
