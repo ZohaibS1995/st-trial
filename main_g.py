@@ -1024,15 +1024,16 @@ def add_bg_from_local(image_file):
     )
 if __name__ == "__main__":
 
-    fire_base_temp = False
+    if "first_run" not in st.session_state:
+        st.session_state["first_run"] = False
     
     if "firebase" not in st.session_state:
-        fire_base_temp = True
+        st.session_state["first_run"] = True
         st.session_state.firebase = True
         # Initialize Firebase Admin SDK
 
     if not firebase_admin._apps or not fire_base_temp:
-        fire_base_temp = True
+        st.session_state["first_run"] = True
         cred = credentials.Certificate('firestore-key.json')
         firebase_admin.initialize_app(cred, name="st-trial")
         st.session_state["db"] = firestore.client()
