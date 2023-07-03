@@ -1024,8 +1024,7 @@ def add_bg_from_local(image_file):
     )
 if __name__ == "__main__":
     
-    if "firebase" in st.session_state:
-        st.session_state.firebase = True
+    if not firebase_admin._apps:
         cred = credentials.Certificate('firestore-key.json')
         firebase_admin.initialize_app(cred, name="st-trial-1")
         
