@@ -1024,22 +1024,8 @@ def add_bg_from_local(image_file):
     )
 if __name__ == "__main__":
 
-    st.write(firebase_admin._apps)
-    
-    if firebase_admin._apps:
-        t_items = list(firebase_admin._apps.keys())
-        for key in t_items:
-            firebase_admin.delete_app(firebase_admin.get_app(name=key))
-            
-    st.write(firebase_admin._apps)
+    st.session_state["db"] = firestore.Client.from_service_account_json("firestore-key.json")
 
-    if  len(list(firebase_admin._apps.keys())) < 1 :
-        cred = credentials.Certificate('firestore-key.json')
-        firebase_admin.initialize_app(cred, name="st-trial-2")
-    else:
-        firebase_admin.get_app(name="st-trial-2")
-
-    st.session_state["db"] = firestore.client()
 
     st.set_page_config(page_title='In silico Trial', layout="wide")
 
