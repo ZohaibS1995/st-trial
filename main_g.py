@@ -1036,7 +1036,8 @@ if __name__ == "__main__":
         st.session_state["first_run"] = True
         cred = credentials.Certificate('firestore-key.json')
         firebase_admin.initialize_app(cred, name="st-trial")
-        st.session_state["db"] = firestore.client()
+        
+    st.session_state["db"] = firestore.client()
     
 
     st.set_page_config(page_title='In silico Trial', layout="wide")
