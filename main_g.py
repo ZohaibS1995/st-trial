@@ -1024,9 +1024,10 @@ def add_bg_from_local(image_file):
     )
 if __name__ == "__main__":
 
-
+    st.write(firebase_admin._apps)
+    
     if firebase_admin._apps:
-        for key,val in firebase_admin._apps:
+        for key,val in firebase_admin._apps.items():
             firebase_admin.delete_app(firebase_admin.get_app())
             
     if not firebase_admin._apps:
