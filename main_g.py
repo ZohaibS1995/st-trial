@@ -1024,12 +1024,14 @@ def add_bg_from_local(image_file):
     )
 if __name__ == "__main__":
     st.write(firebase_admin._apps)
-
+    cred = credentials.Certificate('firestore-key.json')
+    firebase_admin.initialize_app(cred, name="st-trial-2")
+    
     if not firebase_admin._apps:
         cred = credentials.Certificate('firestore-key.json')
-        firebase_admin.initialize_app(cred, name="st-trial-1")
+        firebase_admin.initialize_app(cred, name="st-trial-2")
     else:
-        firebase_admin.get_app(name="st-trial-1")
+        firebase_admin.get_app(name="st-trial-2")
 
     st.session_state["db"] = firestore.client()
 
