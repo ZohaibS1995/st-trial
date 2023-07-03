@@ -1028,14 +1028,15 @@ if __name__ == "__main__":
     
     if firebase_admin._apps:
         for key,val in firebase_admin._apps.items():
-            firebase_admin.delete_app(firebase_admin.get_app())
+            firebase_admin.delete_app(firebase_admin.get_app(name="key"))
             
+    st.write(firebase_admin._apps)
+
     if not firebase_admin._apps:
         cred = credentials.Certificate('firestore-key.json')
         firebase_admin.initialize_app(cred, name="st-trial-2")
     else:
         firebase_admin.get_app(name="st-trial-2")
-        firebase_admin.initialize_app()
 
     st.session_state["db"] = firestore.client()
 
