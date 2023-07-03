@@ -1032,7 +1032,7 @@ if __name__ == "__main__":
         st.session_state.firebase = True
         # Initialize Firebase Admin SDK
 
-    if not firebase_admin._apps or not fire_base_temp:
+    if not firebase_admin._apps or not st.session_state["first_run"]:
         st.session_state["first_run"] = True
         cred = credentials.Certificate('firestore-key.json')
         firebase_admin.initialize_app(cred, name="st-trial")
