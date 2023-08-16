@@ -298,7 +298,7 @@ def usability_page():
 
     if  st.session_state.pred_mod_page1:
             val_w_k = df_pred.iloc[st.session_state.u_id[st.session_state.id], 1:].to_numpy()
-            st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of :red["+ str(val_w_k[1])+ "]")
+            st.markdown("#### The AI model prediction is :red["+ str(np.round(val_w_k[0], 3))+ "] with a probability of :red["+ str(val_w_k[1])+ "]")
 
     explainability_page = st.button("2- Explainability", on_click=explainability_disp, key="exp_page")
 
@@ -369,7 +369,7 @@ def ai_trial():
 
     if  st.session_state.pred_mod_page1:
             val_w_k = df_pred.iloc[st.session_state.id, 1:].to_numpy()
-            st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of :red["+ str(val_w_k[1])+ "]")
+            st.markdown("#### The AI model prediction is :red["+ str(np.round(val_w_k[0], 3))+ "] with a probability of :red["+ str(val_w_k[1])+ "]")
 
     col1, col2, col3 = st.columns([4,4,4])
 
@@ -440,7 +440,7 @@ def ai_trial_explanations():
 
     if  st.session_state.pred_mod_page1:
             val_w_k = df_pred.iloc[st.session_state.id, 1:].to_numpy()
-            st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of :red["+ str(val_w_k[1])+ "]")
+            st.markdown("#### The AI model prediction is :red["+ str(np.round(val_w_k[0], 3))+ "] with a probability of :red["+ str(val_w_k[1])+ "]")
 
     explainability_page = st.button("2- Explainability", on_click=explainability_disp_t, key="exp_page")
 
