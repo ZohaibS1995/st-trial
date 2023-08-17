@@ -288,10 +288,15 @@ def usability_page():
         np_v = np.vstack((keys_n, val_w_k, normal_range)).transpose()
         v_df = pd.DataFrame(np_v, columns = ["Clinical Variable", "Value", "Normal Range"])
 
-        st.table(v_df)
+        styled_df = v_df.style.apply(color_rows, axis=1)
+        st.write(styled_df.to_html(escape=False), unsafe_allow_html=True)
+        #st.table(v_df)
         st.write("##### For explanation of clinical variables, click [here](https://docs.google.com/spreadsheets/d/13gx5gZnqBapxq4_5cgQXWx8jH5iJiPTq/edit?usp=sharing&ouid=109860958973286366025&rtpof=true&sd=true)")
 
     df_pred = pd.read_csv(path_model_prediction, delimiter = ";")
+    val_dict = {}
+    for i in range(len(df_pred["ID"])):
+        val_dict[df_pred["ID"][i]] = [df_pred["prediction"][i], df_pred["probability"][i]]
 
     if  not st.session_state.pred_mod_page1:
         st.markdown('<p class="big-font"> Press the button to reveal the model prediction</p>', unsafe_allow_html=True)
@@ -299,7 +304,7 @@ def usability_page():
     st.button("1- Model Prediction Results of PHLF Risk", on_click=pred_mod, key="disp_pred_mod")
 
     if  st.session_state.pred_mod_page1:
-            val_w_k = df_pred.iloc[int(st.session_state.u_name[st.session_state.id]), 1:].to_numpy()
+            val_w_k = val_dict[int(st.session_state.u_name[st.session_state.id].split(".")[0])]
             st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of :red["+ str(np.round(float(val_w_k[1].replace(",", ".")), 3))+ "]")
             st.write("The cut-off value for PHLF prediction is set at 0.35 based on Youden's index.")
     explainability_page = st.button("2- Explainability", on_click=explainability_disp, key="exp_page")
@@ -359,10 +364,16 @@ def ai_trial():
         normal_range = list(pd.read_csv(path_clinical_normal).to_numpy().transpose())
         np_v = np.vstack((keys_n, val_w_k, normal_range)).transpose()
         v_df = pd.DataFrame(np_v, columns = ["Clinical Variable", "Value", "Normal Range"])
-        st.table(v_df)
+
+        styled_df = v_df.style.apply(color_rows, axis=1)
+        st.write(styled_df.to_html(escape=False), unsafe_allow_html=True)
+        #st.table(v_df)
         st.write("##### For explanation of clinical variables, click [here](https://docs.google.com/spreadsheets/d/13gx5gZnqBapxq4_5cgQXWx8jH5iJiPTq/edit?usp=sharing&ouid=109860958973286366025&rtpof=true&sd=true)")
 
     df_pred = pd.read_csv(path_model_prediction, delimiter = ";")
+    val_dict = {}
+    for i in range(len(df_pred["ID"])):
+        val_dict[df_pred["ID"][i]] = [df_pred["prediction"][i], df_pred["probability"][i]]
 
     if  not st.session_state.pred_mod_page1:
         st.markdown('<p class="big-font"> Press the button to reveal the model prediction</p>', unsafe_allow_html=True)
@@ -370,7 +381,7 @@ def ai_trial():
     st.button("1- Model Prediction Results of PHLF Risk", on_click=pred_mod, key="disp_pred_mod")
 
     if  st.session_state.pred_mod_page1:
-            val_w_k = df_pred.iloc[int(st.session_state.image_names[st.session_state.id].split(".")[0]), 1:].to_numpy()
+            val_w_k = val_dict[int(st.session_state.image_names[st.session_state.id].split(".")[0])]
             st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a  probability of :red["+ str(np.round(float(val_w_k[1].replace(",", ".")), 3))+ "]")
             st.write("The cut-off value for PHLF prediction is set at 0.35 based on Youden's index.")
 
@@ -470,6 +481,9 @@ def ai_trial_explanations():
         st.write("##### For explanation of clinical variables, click [here](https://docs.google.com/spreadsheets/d/13gx5gZnqBapxq4_5cgQXWx8jH5iJiPTq/edit?usp=sharing&ouid=109860958973286366025&rtpof=true&sd=true)")
       
     df_pred = pd.read_csv(path_model_prediction, delimiter = ";")
+    val_dict = {}
+    for i in range(len(df_pred["ID"])):
+        val_dict[df_pred["ID"][i]] = [df_pred["prediction"][i], df_pred["probability"][i]]
 
     if  not st.session_state.pred_mod_page1:
         st.markdown('<p class="big-font"> Press the button to reveal the model prediction</p>', unsafe_allow_html=True)
@@ -477,7 +491,7 @@ def ai_trial_explanations():
     st.button("1- Model Prediction Results of PHLF Risk", on_click=pred_mod, key="disp_pred_mod")
 
     if  st.session_state.pred_mod_page1:
-            val_w_k = df_pred.iloc[int(st.session_state.image_names[st.session_state.id].split(".")[0]), 1:].to_numpy()
+            val_w_k = val_dict[int(st.session_state.image_names[st.session_state.id].split(".")[0])]
             st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of  :red["+ str(np.round(float(val_w_k[1].replace(",", ".")), 3))+ "]")
             st.write("The cut-off value for PHLF prediction is set at 0.35 based on Youden's index.")
 
@@ -505,7 +519,11 @@ def explainability_page():
     st.session_state.page_no = 4
 
     df_pred = pd.read_csv(path_model_prediction, delimiter = ";")
-    val_w_k = df_pred.iloc[int(st.session_state.u_name[st.session_state.id]), 1:].to_numpy()
+    val_dict = {}
+    for i in range(len(df_pred["ID"])):
+        val_dict[df_pred["ID"][i]] = [df_pred["prediction"][i], df_pred["probability"][i]]
+
+    val_w_k = val_dict[int(st.session_state.u_name[st.session_state.id].split(".")[0])]
     prob = np.round(float(val_w_k[1].replace(",",".")), 3)
 
     st.markdown('#### :red[Counterfactual Explanations]')
@@ -583,7 +601,11 @@ def explainability_page_trial():
     st.session_state.page_no = 6
 
     df_pred = pd.read_csv(path_model_prediction, delimiter = ";")
-    val_w_k = df_pred.iloc[int(st.session_state.image_names[st.session_state.id].split(".")[0]), 1:].to_numpy()
+    val_dict = {}
+    for i in range(len(df_pred["ID"])):
+        val_dict[df_pred["ID"][i]] = [df_pred["prediction"][i], df_pred["probability"][i]]
+
+    val_w_k = val_dict[int(st.session_state.image_names[st.session_state.id].split(".")[0])]
     prob = np.round(float(val_w_k[1].replace(",",".")), 3)
 
     st.markdown('#### :red[Counterfactual Explanations]')
