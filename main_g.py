@@ -42,6 +42,7 @@ path_preprocessed = r"./trial/test_set_selected_preprocessed/"
 path_model_prediction = r"./trial/model_predicted_result.csv"
 path_global_explanation = r"./trial/global_lrp.png"
 path_lrp_local = r"./trial/local LRP/"
+path_clinical_normal = r"./trial/clinical_normal.csv"
 
 st_file_name = "default"
 
@@ -283,9 +284,10 @@ def usability_page():
         keys_n = list(df.columns)[2:]
         val_w_k = list(df.iloc[st.session_state.u_id[st.session_state.id], 2:].to_numpy())
 
-        np_v = np.vstack((keys_n, val_w_k)).transpose()
-                        
-        v_df = pd.DataFrame(np_v, columns = ["Clinical Variable", "Value"])
+        normal_range = list(pd.read_csv(path_clinical_normal).to_numpy().transpose())
+        np_v = np.vstack((keys_n, val_w_k, normal_range)).transpose()
+        v_df = pd.DataFrame(np_v, columns = ["Clinical Variable", "Value", "Normal Range"])
+
         st.table(v_df)
         st.write("##### For explanation of clinical variables, click [here](https://docs.google.com/spreadsheets/d/13gx5gZnqBapxq4_5cgQXWx8jH5iJiPTq/edit?usp=sharing&ouid=109860958973286366025&rtpof=true&sd=true)")
 
@@ -297,9 +299,9 @@ def usability_page():
     st.button("1- Model Prediction Results of PHLF Risk", on_click=pred_mod, key="disp_pred_mod")
 
     if  st.session_state.pred_mod_page1:
-            val_w_k = df_pred.iloc[st.session_state.u_id[st.session_state.id], 1:].to_numpy()
-            st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of :red["+ str(val_w_k[1])+ "]")
-
+            val_w_k = df_pred.iloc[int(st.session_state.u_name[st.session_state.id]), 1:].to_numpy()
+            st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of :red["+ str(np.round(float(val_w_k[1].replace(",", ".")), 3))+ "]")
+            st.write("The cut-off value for PHLF prediction is set at 0.35 based on Youden's index.")
     explainability_page = st.button("2- Explainability", on_click=explainability_disp, key="exp_page")
 
     col1, col2, col3 = st.columns([4,4,4])
@@ -354,9 +356,9 @@ def ai_trial():
         keys_n = list(df.columns)[2:]
         val_w_k = list(df.iloc[st.session_state.id, 2:].to_numpy())
 
-        np_v = np.vstack((keys_n, val_w_k)).transpose()
-                        
-        v_df = pd.DataFrame(np_v, columns = ["Clinical Variable", "Value"])
+        normal_range = list(pd.read_csv(path_clinical_normal).to_numpy().transpose())
+        np_v = np.vstack((keys_n, val_w_k, normal_range)).transpose()
+        v_df = pd.DataFrame(np_v, columns = ["Clinical Variable", "Value", "Normal Range"])
         st.table(v_df)
         st.write("##### For explanation of clinical variables, click [here](https://docs.google.com/spreadsheets/d/13gx5gZnqBapxq4_5cgQXWx8jH5iJiPTq/edit?usp=sharing&ouid=109860958973286366025&rtpof=true&sd=true)")
 
@@ -368,8 +370,9 @@ def ai_trial():
     st.button("1- Model Prediction Results of PHLF Risk", on_click=pred_mod, key="disp_pred_mod")
 
     if  st.session_state.pred_mod_page1:
-            val_w_k = df_pred.iloc[st.session_state.id, 1:].to_numpy()
-            st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of :red["+ str(val_w_k[1])+ "]")
+            val_w_k = df_pred.iloc[int(st.session_state.image_names[st.session_state.id].split(".")[0]), 1:].to_numpy()
+            st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a  probability of :red["+ str(np.round(float(val_w_k[1].replace(",", ".")), 3))+ "]")
+            st.write("The cut-off value for PHLF prediction is set at 0.35 based on Youden's index.")
 
     col1, col2, col3 = st.columns([4,4,4])
 
@@ -385,6 +388,38 @@ def ai_trial():
     with col3:
         button_next = st.button("Next", on_click=plus_one_ai, key="plus_one_ai")
     return   
+
+def check_in_range(value, range_str):
+    if range_str == "-":
+        return None  # No coloring
+    
+    elif len(range_str.split("-")) > 1:
+        # Handling cases where the range might use the en dash (–) instead of the hyphen (-)
+        low = range_str.split("-")[0]
+        high = range_str.split("-")[1].split("(")[0].split("s")[0]
+    else:
+        # It's a single value
+        low = high = range_str
+
+    # Check if the value lies within the range
+    try:
+        value = float(value)
+        low, high = float(low), float(high)
+        return value >= low and value <= high
+    except:
+        # Handle non-numeric value comparisons
+        return value == low
+
+def color_rows(row):
+    value, normal_range = row["Value"], row["Normal Range"]
+    in_range = check_in_range(value, normal_range)
+    
+    if in_range is None:
+        return ["", "", ""]
+    if in_range:
+        return ["color: green", "color: green", "color: green"]
+    else:
+        return ["color: red", "color: red", "color: red"]
 
 def ai_trial_explanations():
 
@@ -425,10 +460,13 @@ def ai_trial_explanations():
         keys_n = list(df.columns)[2:]
         val_w_k = list(df.iloc[st.session_state.id, 2:].to_numpy())
 
-        np_v = np.vstack((keys_n, val_w_k)).transpose()
-                        
-        v_df = pd.DataFrame(np_v, columns = ["Clinical Variable", "Value"])
-        st.table(v_df)
+        normal_range = list(pd.read_csv(path_clinical_normal).to_numpy().transpose())
+        np_v = np.vstack((keys_n, val_w_k, normal_range)).transpose()
+        v_df = pd.DataFrame(np_v, columns = ["Clinical Variable", "Value", "Normal Range"])
+
+        styled_df = v_df.style.apply(color_rows, axis=1)
+        st.write(styled_df.to_html(escape=False), unsafe_allow_html=True)
+        #st.table(v_df)
         st.write("##### For explanation of clinical variables, click [here](https://docs.google.com/spreadsheets/d/13gx5gZnqBapxq4_5cgQXWx8jH5iJiPTq/edit?usp=sharing&ouid=109860958973286366025&rtpof=true&sd=true)")
       
     df_pred = pd.read_csv(path_model_prediction, delimiter = ";")
@@ -439,8 +477,9 @@ def ai_trial_explanations():
     st.button("1- Model Prediction Results of PHLF Risk", on_click=pred_mod, key="disp_pred_mod")
 
     if  st.session_state.pred_mod_page1:
-            val_w_k = df_pred.iloc[st.session_state.id, 1:].to_numpy()
-            st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of :red["+ str(val_w_k[1])+ "]")
+            val_w_k = df_pred.iloc[int(st.session_state.image_names[st.session_state.id].split(".")[0]), 1:].to_numpy()
+            st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of  :red["+ str(np.round(float(val_w_k[1].replace(",", ".")), 3))+ "]")
+            st.write("The cut-off value for PHLF prediction is set at 0.35 based on Youden's index.")
 
     explainability_page = st.button("2- Explainability", on_click=explainability_disp_t, key="exp_page")
 
@@ -466,8 +505,8 @@ def explainability_page():
     st.session_state.page_no = 4
 
     df_pred = pd.read_csv(path_model_prediction, delimiter = ";")
-    val_w_k = df_pred.iloc[st.session_state.id, 1:].to_numpy()
-    prob = float(val_w_k[1].replace(",","."))
+    val_w_k = df_pred.iloc[int(st.session_state.u_name[st.session_state.id]), 1:].to_numpy()
+    prob = np.round(float(val_w_k[1].replace(",",".")), 3)
 
     st.markdown('#### :red[Counterfactual Explanations]')
     st.write("##### For explanation of counterfactual explanation, click [here](https://docs.google.com/presentation/d/1pPZoBA3QWArKC7oc7V4kX2BAXzOMo1gG/edit?usp=drive_link&ouid=113189205428208347942&rtpof=true&sd=true)")
@@ -475,12 +514,14 @@ def explainability_page():
     col1, col2, col3 = st.columns([5, 5, 5])
     with col1:
         st.write("**Preprocessed Image**")
+        st.write("SWE image is preprocessed to remove marking and b-mode ultrasound.")
         image = Image.open(path_preprocessed + "{:03d}".format(int(st.session_state.u_name[st.session_state.id])) + ".png")
         image = image.resize((224,224))
         st.image(image)
 
     with col2:
         st.write("**Reconstructed Image**")
+        st.write("This reconstructed image is used for generating counterfactual explanations.")
         image = Image.open(path_reconstructed + "{:03d}".format(int(st.session_state.u_name[st.session_state.id])) + ".png")
         image = image.resize((224,224))
         st.image(image)
@@ -488,15 +529,22 @@ def explainability_page():
     col1, col2, col3 = st.columns([5, 3, 3])
     with col1:
         st.write("**Counterfactual Image**")
+        st.write("This image is produced by applying minimal perturbation to the  \n original image so that the model's prediction matches the selected probability.")
         image = Image.open(os.path.join(path_counterfactual + "{:03d}".format(int(st.session_state.u_name[st.session_state.id])),
                                          "0_" + str(int(st.session_state.counterfactual_slider*10)) + ".png"))
         image = image.resize((224,224))
         st.image(image)
 
-    col1, col2, col3 = st.columns([1.5, 5, 5])
+    col1, col2, col3, col4 = st.columns([0.4, 4, 0.4, 14])
 
     with col1:
+        st.button(r"\-", on_click=decrease_slider)
+
+    with col2:
         val = st.slider('Select the Counterfactual Probability:', min_value = 0.1, max_value = 0.9, step = 0.1, key="counterfactual_slider")
+
+    with col3:
+        st.button(r"\+", on_click=increase_slider)
 
     st.markdown('#### :red[Layerwise Relevance Propagation (LRP) Explanations]')
     st.write("##### For explanation of layerwise relevance propagation, click [here](https://docs.google.com/presentation/d/1YsvnZTJrwaKeMW1JDVaciEuYttMb9ysv/edit?usp=drive_link&ouid=113189205428208347942&rtpof=true&sd=true)")
@@ -504,11 +552,13 @@ def explainability_page():
     col1, col2 = st.columns([4.5, 5])
     with col1:
         st.write("**Global Explanation**")
+        st.write("The contributions of variables for the model in general. This explanation is same for all the examples.")
         image = Image.open(path_global_explanation)
         st.image(image)
 
     with col2:
         st.write("**Local Explanation**")
+        st.write("The contributions of variables for this specific patient. This explanation is specific to the patient.")
         image = Image.open(path_lrp_local + "{:03d}".format(int(st.session_state.u_name[st.session_state.id])) + ".png")
         st.image(image)
 
@@ -519,14 +569,22 @@ def explainability_page():
     return 
 
 
+def decrease_slider():
+    st.session_state.counterfactual_slider = max(0.1, st.session_state.counterfactual_slider - 0.1)
+    return
+
+def increase_slider():
+    st.session_state.counterfactual_slider = min(0.9, st.session_state.counterfactual_slider + 0.1)
+    return
+
 # Making an explainability page
 def explainability_page_trial():
     st.title("")
     st.session_state.page_no = 6
 
     df_pred = pd.read_csv(path_model_prediction, delimiter = ";")
-    val_w_k = df_pred.iloc[st.session_state.id, 1:].to_numpy()
-    prob = float(val_w_k[1].replace(",","."))
+    val_w_k = df_pred.iloc[int(st.session_state.image_names[st.session_state.id].split(".")[0]), 1:].to_numpy()
+    prob = np.round(float(val_w_k[1].replace(",",".")), 3)
 
     st.markdown('#### :red[Counterfactual Explanations]')
     st.write("##### For explanation of counterfactual explanation, click [here](https://docs.google.com/presentation/d/1pPZoBA3QWArKC7oc7V4kX2BAXzOMo1gG/edit?usp=drive_link&ouid=113189205428208347942&rtpof=true&sd=true)")
@@ -534,12 +592,14 @@ def explainability_page_trial():
     col1, col2, col3 = st.columns([5, 5, 5])
     with col1:
         st.write("**Preprocessed Image**")
+        st.write("SWE image is preprocessed to remove marking and b-mode ultrasound.")
         image = Image.open(path_preprocessed + st.session_state.image_names[st.session_state.id])
         image = image.resize((224,224))
         st.image(image)
 
     with col2:
         st.write("**Reconstructed Image**")
+        st.write("This reconstructed image is used for generating counterfactual explanations.")
         image = Image.open(path_reconstructed + st.session_state.image_names[st.session_state.id])
         image = image.resize((224,224))
         st.image(image)
@@ -547,15 +607,22 @@ def explainability_page_trial():
     col1, col2, col3 = st.columns([5, 3, 3])
     with col1:
         st.write("**Counterfactual Image**")
+        st.write("This image is produced by applying minimal perturbation to the  \n original image so that the model's prediction matches the selected probability.")
         image = Image.open(os.path.join(path_counterfactual + st.session_state.image_names[st.session_state.id].split(".")[0],
                                          "0_" + str(int(st.session_state.counterfactual_slider*10)) + ".png"))
         image = image.resize((224,224))
         st.image(image)
 
-    col1, col2, col3 = st.columns([1.5, 5, 5])
+    col1, col2, col3, col4 = st.columns([0.4, 4, 0.4, 14])
 
     with col1:
+        st.button(r"\-", on_click=decrease_slider)
+
+    with col2:
         val = st.slider('Select the Counterfactual Probability:', min_value = 0.1, max_value = 0.9, step = 0.1, key="counterfactual_slider")
+
+    with col3:
+        st.button(r"\+", on_click=increase_slider)
 
     st.markdown('#### :red[Layerwise Relevance Propagation (LRP) Explanations]')
     st.write("##### For explanation of layerwise relevance propagation, click [here](https://docs.google.com/presentation/d/1YsvnZTJrwaKeMW1JDVaciEuYttMb9ysv/edit?usp=drive_link&ouid=113189205428208347942&rtpof=true&sd=true)")
@@ -563,11 +630,13 @@ def explainability_page_trial():
     col1, col2 = st.columns([4.5, 5])
     with col1:
         st.write("**Global Explanation**")
+        st.write("The contributions of variables for the model in general. This explanation is same for all the examples.")
         image = Image.open(path_global_explanation)
         st.image(image)
 
     with col2:
         st.write("**Local Explanation**")
+        st.write("The contributions of variables for this specific patient. This explanation is specific to the patient.")
         image = Image.open(path_lrp_local + st.session_state.image_names[st.session_state.id])
         st.image(image)
 
@@ -604,13 +673,13 @@ def usability_questionaire():
     with st.container():
         st.markdown("**2. Classifier’s decision justification:**")
 
-        option2 = st.radio("The changes in the video are related to PHLF", ("1", "2", "3", "4", "5"), key="radio2"
+        option2 = st.radio("The changes in the SWE image are related to PHLF", ("1", "2", "3", "4", "5"), key="radio2"
                         , horizontal=True)
 
     # Block3
     with st.container():
         st.markdown("**3. Visual quality:**")
-        option3 = st.radio("Images in the video look like SWE images", ("1", "2", "3", "4", "5"), key="radio3"
+        option3 = st.radio("The generated counterfactual images look like SWE images", ("1", "2", "3", "4", "5"), key="radio3"
                         , horizontal=True)
 
     # Block4
@@ -1110,7 +1179,6 @@ if __name__ == "__main__":
     if "speciality_user" not in st.session_state:
         st.session_state.speciality_user = ""
 
-
     if st.session_state.page_no == -1:
         info_page()
     elif st.session_state.page_no == 0:
@@ -1135,3 +1203,29 @@ if __name__ == "__main__":
         final_page_ex()
     elif st.session_state.page_no == 10:
         system_causability_scale()
+
+    # define normal range
+    st.session_state.min_albu = 35
+    st.session_state.max_albu = 50
+    st.session_state.ascites = "No"
+    st.session_state.cirrhosis = "No"
+    st.session_state.cp_grade = "A"
+    st.session_state.cp_score = 5
+    st.session_state.csph = "No"
+    st.session_state.min_ggt = 2
+    st.session_state.max_ggt = 50
+    st.session_state.min_inr = 0.8
+    st.session_state.max_inr = 1.15
+    st.session_state.min_pt = 11
+    st.session_state.max_pt = 14
+    st.session_state.splenomegaly = "No"
+    st.session_state.min_tbil = 3
+    st.session_state.max_tbil = 22
+    st.session_state.albi = "-"
+    st.session_state.bclc = "-"
+    st.session_state.flr = "-"
+    st.session_state.flr_ratio = "-"
+    st.session_state.major_hepatectomy = "-"
+    st.session_state.meld = "-"
+    st.session_state.milan_crit = "-"
+    st.session_state.rlv = "-"
