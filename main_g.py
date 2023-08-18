@@ -304,7 +304,7 @@ def usability_page():
     st.button("1- Model Prediction Results of PHLF Risk", on_click=pred_mod, key="disp_pred_mod")
 
     if  st.session_state.pred_mod_page1:
-            val_w_k = val_dict[int(st.session_state.u_name[st.session_state.id].split(".")[0])]
+            val_w_k = val_dict[int(st.session_state.u_name[st.session_state.id])]
             st.markdown("#### The AI model prediction is :red["+ str(val_w_k[0])+ "] with a probability of :red["+ str(np.round(float(val_w_k[1].replace(",", ".")), 3))+ "]")
             st.write("The cut-off value for PHLF prediction is set at 0.35 based on Youden's index.")
     explainability_page = st.button("2- Explainability", on_click=explainability_disp, key="exp_page")
