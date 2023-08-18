@@ -428,7 +428,7 @@ def color_rows(row):
     if in_range is None:
         return ["", "", ""]
     if in_range:
-        return ["color: green", "color: green", "color: green"]
+        return ["", "", ""]#["color: green", "color: green", "color: green"]
     else:
         return ["color: red", "color: red", "color: red"]
 
@@ -523,7 +523,7 @@ def explainability_page():
     for i in range(len(df_pred["ID"])):
         val_dict[df_pred["ID"][i]] = [df_pred["prediction"][i], df_pred["probability"][i]]
 
-    val_w_k = val_dict[int(st.session_state.u_name[st.session_state.id].split(".")[0])]
+    val_w_k = val_dict[int(st.session_state.u_name[st.session_state.id])]
     prob = np.round(float(val_w_k[1].replace(",",".")), 3)
 
     st.markdown('#### :red[Counterfactual Explanations]')
