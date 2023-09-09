@@ -95,9 +95,8 @@ def ai_trial():
 
     
         styled_df = v_df.style.apply(color_rows, axis=1)
-        html_content = styled_df.render()
 
-        st.write(html_content, unsafe_allow_html=True)
+        st.write(styled_df.to_html(escape=False), unsafe_allow_html=True)
         st.write(f"##### For explanation of clinical variables, [click here]({URL_variable_explanation})")
 
     # Display model prediction

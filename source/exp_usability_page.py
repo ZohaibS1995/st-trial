@@ -112,7 +112,7 @@ def explainability_page():
 
     
         styled_df = v_df.style.apply(color_rows, axis=1)
-        html_content = styled_df.render()
+        html_content = styled_df.to_html(escape=False)
 
         # Define your desired table dimensions
         width = "800px"
