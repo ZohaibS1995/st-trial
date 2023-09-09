@@ -131,7 +131,8 @@ def usability_page():
     st.session_state.usability_pred[f"{int(st.session_state.u_name[st.session_state.id]):03}.png"] = st.session_state.u_pred
 
     col1, col2, col3 = st.columns([1, 7, 1])
-    button_next = st.button("Next", on_click=question_page, key="q_page")
+    with col3:
+        button_next = st.button("Next", on_click=question_page, key="q_page")
 
     return
 
