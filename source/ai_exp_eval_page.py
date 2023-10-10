@@ -80,7 +80,6 @@ def ai_trial_explanations():
                 df[col] = df[col].astype(float).round(2)
                 
         keys_n = list(df.columns)[2:]
-        st.write(st.session_state.image_names[st.session_state.id].split(".")[0])
         val_w_k = list(df.iloc[df.index[df['ID'] == int(st.session_state.image_names[st.session_state.id].split(".")[0])].item(), 2:].to_numpy())
         normal_range = list(pd.read_csv(path_clinical_normal).to_numpy().transpose())
 
