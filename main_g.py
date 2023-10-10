@@ -28,6 +28,7 @@ from source.final_page_usability import *
 from source.final_page_ai import *
 from source.end_questionaire import *
 from source.no_assist_eval import *
+from source.final_page_no_assist import *
 from source.utils import *
 
 if __name__ == "__main__":

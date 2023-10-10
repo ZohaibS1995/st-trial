@@ -19,7 +19,7 @@ def _save_to_db_q_ai(data, document_name):
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document(document_name)
     doc_ref.set(data_dict)
 
-def final_page_a():
+def final_page_no_assist():
     # Display completion messages
     st.markdown("<h1 style='text-align: center;'>"
                 "You finished the Trial! Press the home button to go the home page."
