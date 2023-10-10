@@ -60,7 +60,7 @@ def ai_trial_explanations():
 
     # Set the page number and display the header
     st.session_state.page_no = 3
-    st.write("## AI + Clinicians + Explanations Trial: " + str(st.session_state.id+1) + "/" + str(len(st.session_state.image_names)))
+    st.write("## Clinical Trial - AI + Explanations: " + str(st.session_state.id+1) + "/" + str(len(st.session_state.image_names)))
     st.write("---")
 
     # Display images

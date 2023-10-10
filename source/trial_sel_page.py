@@ -64,8 +64,8 @@ def landing_page():
     # Creating buttons for different trials
     st.button("Usability test", on_click=sel_usability, key="s_u")
     st.button("Clinical trial: No Assistance", on_click=sel_no_assist_trial, key="s_no_a")
-    st.button("Clinical trial: only AI", on_click=sel_ai_trial, key="s_a")
-    st.button("Clinical trial: AI+explanation", on_click=sel_ai_exp_trial, key="s_ex_a")
+    st.button("Clinical trial: AI Assistance", on_click=sel_ai_trial, key="s_a")
+    st.button("Clinical trial: AI + Explanation", on_click=sel_ai_exp_trial, key="s_ex_a")
 
     # Setting up columns
     col1, col2, col3 = st.columns([2, 4, 2])

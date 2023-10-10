@@ -97,7 +97,7 @@ def no_assist_trial():
 
     # User prediction input
     with st.columns([4,4,4])[0]:
-        st.radio("2- Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="ai_pred")
+        st.radio("Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="ai_pred")
 
     # Store user prediction in session state
     st.session_state.no_assist_trial[st.session_state.image_names[st.session_state.id]] = st.session_state.ai_pred

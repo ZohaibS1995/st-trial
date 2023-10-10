@@ -64,7 +64,7 @@ def ai_trial():
 
     # Set current page number and display trial progress
     st.session_state.page_no = 2
-    st.write(f"## AI + Clinicians Trial: {st.session_state.id+1}/{len(st.session_state.image_names)}")
+    st.write(f"## Clinical Trial - AI Assistance: {st.session_state.id+1}/{len(st.session_state.image_names)}")
     st.write("---")
 
     col1, col2 = st.columns([4, 5])
