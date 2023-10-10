@@ -85,7 +85,7 @@ def ai_trial():
                 df[col] = df[col].astype(float).round(2)
                 
         keys_n = list(df.columns)[2:]
-        val_w_k = list(df.iloc[st.session_state.id, 2:].to_numpy())
+        val_w_k = list(df.iloc[int(st.session_state.image_names[st.session_state.id]), 2:].to_numpy())
         normal_range = list(pd.read_csv(path_clinical_normal).to_numpy().transpose())
 
         data = np.vstack((keys_n, val_w_k, normal_range)).transpose()
