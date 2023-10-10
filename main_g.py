@@ -27,6 +27,7 @@ from source.final_page_exp import *
 from source.final_page_usability import *
 from source.final_page_ai import *
 from source.end_questionaire import *
+from source.no_assist_eval import *
 from source.utils import *
 
 if __name__ == "__main__":
@@ -66,6 +67,7 @@ if __name__ == "__main__":
     st.session_state.setdefault("usability_pred", {})
     st.session_state.setdefault("causability_questionaire", {})
     st.session_state.setdefault("ai_trial", {})
+    st.session_state.setdefault("no_assist_trial", {})
     st.session_state.setdefault("ai_exp_trial", {})
     st.session_state.setdefault("time_taken", {})
     st.session_state.setdefault("required_flag", False)
@@ -94,6 +96,8 @@ if __name__ == "__main__":
         10: system_causability_scale,
         11: end_questionaire_ai_only,
         12: end_questionaire_ai_exp,
+        13: no_assist_trial,
+        14: final_page_no_assist
     }
 
     # Calling the corresponding function for the current page

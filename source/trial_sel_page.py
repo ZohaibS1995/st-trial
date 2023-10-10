@@ -16,6 +16,10 @@ def sel_ai_trial():
     """ Handles the AI trial button click. """
     initialize_trial(2)
 
+def sel_no_assist_trial():
+    """ Handles the AI trial button click. """
+    initialize_trial(13)
+
 def sel_ai_exp_trial():
     """ Handles the AI + explanation trial button click. """
     initialize_trial(3)
@@ -59,6 +63,7 @@ def landing_page():
     
     # Creating buttons for different trials
     st.button("Usability test", on_click=sel_usability, key="s_u")
+    st.button("Clinical trial: No Assistance", on_click=sel_no_assist_trial, key="s_no_a")
     st.button("Clinical trial: only AI", on_click=sel_ai_trial, key="s_a")
     st.button("Clinical trial: AI+explanation", on_click=sel_ai_exp_trial, key="s_ex_a")
 
