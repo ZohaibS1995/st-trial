@@ -103,17 +103,15 @@ def explainability_page_trial():
         image_path = path_lrp_local + st.session_state.image_names[st.session_state.id]
         st.image(Image.open(image_path))
     with col3:
-        # Load data and display
         df = pd.read_csv(path_clinical_data)
         # Iterate over columns and convert if all values are floats
         for col in df.columns:
             # Check if all values in the column can be converted to float
             if df[col].apply(is_float).all():
                 df[col] = df[col].astype(float).round(2)
-
+                
         keys_n = list(df.columns)[2:]
-        val_w_k = list(df.iloc[st.session_state.id, 2:].to_numpy())
-
+        val_w_k = list(df.iloc[df.index[df['ID'] == int(st.session_state.image_names[st.session_state.id].split(".")[0])].item(), 2:].to_numpy())
         normal_range = list(pd.read_csv(path_clinical_normal).to_numpy().transpose())
 
         data = np.vstack((keys_n, val_w_k, normal_range)).transpose()
