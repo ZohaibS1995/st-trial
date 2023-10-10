@@ -86,3 +86,9 @@ def minus_one():
         st.session_state.pred_mod_page1 = False
     return
 
+def is_float(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
