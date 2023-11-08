@@ -77,7 +77,7 @@ def ai_trial():
 
     # Display clinical data
     with col2:
-        df = pd.read_csv(path_clinical_data)
+        df = pd.read_excel(path_clinical_data, engine="openpyxl")
         # Iterate over columns and convert if all values are floats
         for col in df.columns:
             # Check if all values in the column can be converted to float

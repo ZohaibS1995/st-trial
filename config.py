@@ -1,4 +1,4 @@
-path_clinical_data = r"./trial/clinical_variables.csv"
+path_clinical_data = r"./trial/clinical_variables.xlsx"
 path_orig_images = r"./trial/test_set_selected_original/"
 path_reconstructed = r"./trial/counterfactual_reconstructed_image/"
 path_counterfactual = r"./trial/counterfactual/"
