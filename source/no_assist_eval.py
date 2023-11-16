@@ -26,7 +26,7 @@ def plus_one_no_assist():
 
     # If all images have been evaluated, set the page number to 8
     elif st.session_state.id == len(st.session_state.image_names) - 1:
-        st.session_state.page_no = 14
+        st.session_state.page_no = 15
 
 def _record_time_taken():
     """

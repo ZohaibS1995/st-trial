@@ -98,7 +98,8 @@ if __name__ == "__main__":
         11: end_questionaire_ai_only,
         12: end_questionaire_ai_exp,
         13: no_assist_trial,
-        14: final_page_no_assist
+        14: final_page_no_assist,
+        15: end_questionaire_ai_no_assist
     }
 
     # Calling the corresponding function for the current page

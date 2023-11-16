@@ -6,6 +6,9 @@ def plus_one_quest_ai():
 def plus_one_quest_ai_exp():
     st.session_state.page_no = 9
 
+def plus_one_quest_ai_no_assist():
+    st.session_state.page_no = 14
+
 def end_questionaire_ai_only():
 
     st.session_state.page_no = 11
@@ -33,7 +36,8 @@ def end_questionaire_ai_only():
         "Total liver volume",
         "Resected liver volume",
         "Future liver remnant volume",
-        "Future liver remnant volume ratio"
+        "Future liver remnant volume ratio",
+        "Liver stiffness measurement (kPa)"
     ]
 
     # Streamlit multi-select widget
@@ -75,7 +79,8 @@ def end_questionaire_ai_exp():
         "Total liver volume",
         "Resected liver volume",
         "Future liver remnant volume",
-        "Future liver remnant volume ratio"
+        "Future liver remnant volume ratio",
+        "Liver stiffness measurement (kPa)"
     ]
 
     # Streamlit multi-select widget
@@ -89,3 +94,47 @@ def end_questionaire_ai_exp():
     # "Next" button
     with col3:
         button_next = st.button("Next", on_click=plus_one_quest_ai_exp, key="add_one_ques_ai_exp")
+
+
+def end_questionaire_ai_no_assist():
+
+    st.session_state.page_no = 15
+
+    # List of variables
+    variables = [
+        "Shear wave elastography (SWE) image",
+        "Albumin",
+        "Total bilirubin",
+        "Gamma-glutamyl transferase",
+        "Prothrombin time",
+        "International normalized ratio",
+        "Albumin-Bilirubin",
+        "Child-Pugh score",
+        "Child-Pugh grade",
+        "Model for end-stage liver disease",
+        "Major hepatectomy",
+        "Splenomegaly",
+        "Cirrhosis",
+        "Clinically significant portal hypertension",
+        "Ascites",
+        "Tumor size",
+        "Milan criteria",
+        "BCLC",
+        "Total liver volume",
+        "Resected liver volume",
+        "Future liver remnant volume",
+        "Future liver remnant volume ratio",
+        "Liver stiffness measurement (kPa)"
+    ]
+
+    # Streamlit multi-select widget
+    st.session_state.end_questionnaire_ai_exp = st.multiselect(
+        "Which variables do you focus on when making the prediction? (You can choose one or more options)", 
+        variables
+    )
+
+    col1, col2, col3 = st.columns([1, 7, 1])
+
+    # "Next" button
+    with col3:
+        button_next = st.button("Next", on_click=plus_one_quest_ai_no_assist, key="add_one_ques_ai_no_assist")
