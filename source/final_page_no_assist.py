@@ -10,12 +10,12 @@ def go_home():
     st.session_state.page_no = 0
     # No explicit return is needed; the function will return None by default
 
-def _save_to_db_q_ai(data, document_name):
+def _save_to_db_q_ai_no_assist(data, document_name):
     """
     Save the given data to the database under the specified document name.
     """
 
-    data_dict = {"response_questionnaire_ai_only": str(data)}
+    data_dict = {"response_questionnaire_ai_no_assist": str(data)}
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document(document_name)
     doc_ref.set(data_dict)
 
@@ -65,6 +65,11 @@ def final_page_no_assist():
     dict_profile = {str(key): str(value) for key, value in zip(keys_t, values_t)}
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document("profile")
     doc_ref.set(dict_profile)
+
+    _save_to_db_q_ai_no_assist(
+        data=st.session_state.end_questionnaire_ai_no_assist,
+        document_name="end_questionnaire_ai_no_assist"
+    )    
 
     col1, col2, col3, col4, col5, col6 = st.columns([1, 1, 1, 1, 1, 1])
     with col4:
