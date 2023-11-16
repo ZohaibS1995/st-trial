@@ -128,7 +128,7 @@ def end_questionaire_ai_no_assist():
     ]
 
     # Streamlit multi-select widget
-    st.session_state.end_questionnaire_ai_exp = st.multiselect(
+    st.session_state.end_questionnaire_ai_no_assist = st.multiselect(
         "Which variables do you focus on when making the prediction? (You can choose one or more options)", 
         variables
     )
