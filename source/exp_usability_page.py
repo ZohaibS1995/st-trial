@@ -125,7 +125,7 @@ def explainability_page():
         st.markdown(table_wrapper, unsafe_allow_html=True)
 
 
-    st.write("For explanation of clinical variables, click [here](https://docs.google.com/spreadsheets/d/13gx5gZnqBapxq4_5cgQXWx8jH5iJiPTq/edit?usp=sharing&ouid=109860958973286366025&rtpof=true&sd=true)")
-    
+    st.write(f"##### For explanation of clinical variables, [click here]({URL_variable_explanation})")  
+      
     # Navigation button
     st.button("Back", on_click=back_return_u, key="r_back")

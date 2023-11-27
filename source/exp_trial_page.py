@@ -135,7 +135,7 @@ def explainability_page_trial():
         st.markdown(table_wrapper, unsafe_allow_html=True)
 
     # Link to the explanation of clinical variables
-    st.write("##### For explanation of clinical variables, click [here](LINK)")
+    st.write(f"##### For explanation of clinical variables, [click here]({URL_variable_explanation})")
     
     # Back button to navigate to the previous page
     st.button("Back", on_click=back_return_t, key="r_back_t")
