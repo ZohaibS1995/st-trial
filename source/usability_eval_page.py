@@ -73,6 +73,11 @@ def usability_page():
     st.write(f"## Usability Trial: {st.session_state.id+1}/6")
     st.write("---")
 
+    df_basic_info = pd.read_excel(path_basic_information, engine="openpyxl")
+    index_id = df_basic_info.index[df_basic_info['ID'] == int(st.session_state.u_name[st.session_state.id])].item()
+    info = df_basic_info.iloc[index_id, 1:].to_numpy()[0]
+    st.write(f"##### Patient's information: {info}")
+
     # Rendering columns
     col1, col2 = st.columns([4, 5])
 

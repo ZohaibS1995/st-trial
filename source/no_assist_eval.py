@@ -62,6 +62,11 @@ def no_assist_trial():
     st.write(f"## Clinical Trial - No Assistance: {st.session_state.id+1}/{len(st.session_state.image_names)}")
     st.write("---")
 
+    df_basic_info = pd.read_excel(path_basic_information, engine="openpyxl")
+    index_id = df_basic_info.index[df_basic_info['ID'] == int(st.session_state.image_names[st.session_state.id].split(".")[0])].item()
+    info = df_basic_info.iloc[index_id, 1:].to_numpy()[0]
+    st.write(f"##### Patient's Information: {info}")
+
     col1, col2 = st.columns([4, 5])
 
     # Display SWE Image and B-mode Ultrasound
@@ -101,6 +106,11 @@ def no_assist_trial():
 
     # Store user prediction in session state
     st.session_state.no_assist_trial[st.session_state.image_names[st.session_state.id]] = st.session_state.ai_pred
+
+    with st.columns([4,4,4])[0]:
+        value = st.slider("Choose Confidence Level for Your Prediction (0 - 100 %): ", 0, 100, 50, step=10, key="confidence_level")
+
+    st.session_state.ai_no_confidence_level[st.session_state.image_names[st.session_state.id]] = st.session_state.confidence_level
 
     # Next button
     with st.columns([1,7,1])[2]:

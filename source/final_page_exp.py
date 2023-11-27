@@ -45,6 +45,16 @@ def final_page_ex():
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document("ai_exp_trial_results")
     doc_ref.set(dict_ai_exp_trial)
 
+    # Save AI Exp Confidence Level to database
+    dict_ai_exp_confidence_level = {str(key): str(val) for key, val in zip(st.session_state.image_names, st.session_state.ai_exp_confidence_level.values())}
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document("ai_exp_confidence_level")
+    doc_ref.set(dict_ai_exp_confidence_level)
+
+    # Save AI Exp Decision Justification to database
+    dict_ai_exp_exp_justification_level = {str(key): str(val) for key, val in zip(st.session_state.image_names, st.session_state.ai_exp_justification_level.values())}
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document("ai_exp_justification_level")
+    doc_ref.set(dict_ai_exp_exp_justification_level)
+
     # Save time taken data to database
     dict_time = {str(key): str(val) for key, val in st.session_state.time_taken.items()}
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document("ai_exp_trial_time")

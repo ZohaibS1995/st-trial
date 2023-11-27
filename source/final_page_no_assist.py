@@ -38,6 +38,11 @@ def final_page_no_assist():
     doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document("no_assist_trial_results")
     doc_ref.set(dict_ai_trial_pred)
 
+    # Save AI Exp Confidence Level to database
+    dict_ai_no_confidence_level = {str(key): str(val) for key, val in zip(st.session_state.image_names, st.session_state.ai_no_confidence_level.values())}
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document("ai_no_confidence_level")
+    doc_ref.set(dict_ai_no_confidence_level)
+
     # Store Time taken data
     keys_t = list(st.session_state.time_taken.keys())
     values_t = list(st.session_state.time_taken.values())

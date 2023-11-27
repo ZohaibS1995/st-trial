@@ -63,6 +63,11 @@ def ai_trial_explanations():
     st.write("## Clinical Trial - AI + Explanations: " + str(st.session_state.id+1) + "/" + str(len(st.session_state.image_names)))
     st.write("---")
 
+    df_basic_info = pd.read_excel(path_basic_information, engine="openpyxl")
+    index_id = df_basic_info.index[df_basic_info['ID'] == int(st.session_state.image_names[st.session_state.id].split(".")[0])].item()
+    info = df_basic_info.iloc[index_id, 1:].to_numpy()[0]
+    st.write(f"##### Patient's Information: {info}")
+
     # Display images
     col1, col2 = st.columns([4, 5])
     with col1:
@@ -116,6 +121,15 @@ def ai_trial_explanations():
     col1, col2, col3 = st.columns([4,4,4])
     with col1:
         st.radio("3- Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="ai_exp_pred")
+
+    with st.columns([4,4,4])[0]:
+        value = st.slider("Choose Confidence Level for Your Prediction (0 - 100 %): ", 0, 100, 50, step=10, key="confidence_level")
+
+    with st.columns([4,4,4])[0]:
+        value = st.slider("Choose Classifier's Decision Justification Level (0 - 100 %): ", 0, 100, 50, step=10, key="exp_justification_level")
+
+    st.session_state.ai_exp_confidence_level[st.session_state.image_names[st.session_state.id]] = st.session_state.confidence_level
+    st.session_state.ai_exp_justification_level[st.session_state.image_names[st.session_state.id]] = st.session_state.exp_justification_level
 
     st.session_state.ai_exp_trial[st.session_state.image_names[st.session_state.id]] = st.session_state.ai_exp_pred
 

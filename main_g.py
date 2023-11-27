@@ -80,6 +80,12 @@ if __name__ == "__main__":
     st.session_state.setdefault("end_questionnaire_ai", "")
     st.session_state.setdefault("end_questionnaire_ai_exp", "")
 
+    # for confidence levels and decision justification
+    st.session_state.setdefault("ai_exp_confidence_level", {})
+    st.session_state.setdefault("ai_only_confidence_level", {})
+    st.session_state.setdefault("ai_no_confidence_level", {})
+    st.session_state.setdefault("ai_exp_justification_level", {})
+
     # Page navigation
     # Depending on the value of 'page_no', a different function (page) is called
     pages = {
