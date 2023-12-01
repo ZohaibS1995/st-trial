@@ -149,7 +149,7 @@ def ai_trial_explanations():
     with col3:
         st.button(r"\+", on_click=increase_slider)
     
-    st.write("### Choose Statisfaction Level for Classifier's Decision Explanation (0 - 100 %): ")
+    st.write("### Choose statisfaction level for classifier's decision explanation (0 - 100 %): ")
 
     col1, col2, col3, col4 = st.columns([0.4, 4, 0.4, 14])
     with col1:

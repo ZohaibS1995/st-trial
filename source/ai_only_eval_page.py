@@ -121,7 +121,7 @@ def ai_trial():
     with st.columns([4,4,4])[0]:
         st.radio("2- Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="ai_pred")
 
-    st.write("### Choose Confidence Level for Your Prediction (0 - 100 %):")
+    st.write("### Choose confidence level for your prediction (0 - 100 %):")
 
     col1, col2, col3, col4 = st.columns([0.4, 4, 0.4, 14])
     with col1:
