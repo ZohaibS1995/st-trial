@@ -7,6 +7,23 @@ from datetime import datetime
 from config import *
 from source.utils import * 
 
+# Function to decrease the value of the counterfactual slider
+def decrease_slider():
+    st.session_state.confidence_level = max(0, st.session_state.confidence_level - 10)
+
+# Function to increase the value of the counterfactual slider
+def increase_slider():
+    st.session_state.confidence_level = min(100, st.session_state.confidence_level + 10)
+
+# Function to decrease the value of the counterfactual slider
+def decrease_slider_jl():
+    st.session_state.exp_justification_level = max(0, st.session_state.exp_justification_level - 10)
+
+# Function to increase the value of the counterfactual slider
+def increase_slider_jl():
+    st.session_state.exp_justification_level = min(100, st.session_state.exp_justification_level + 10)
+
+
 def plus_one_ai_exp():
     """
     Increments the image ID and handles the timer for each image.
@@ -122,11 +139,26 @@ def ai_trial_explanations():
     with col1:
         st.radio("3- Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="ai_exp_pred")
 
-    with st.columns([4,4,4])[0]:
-        value = st.slider("Choose Confidence Level for Your Prediction (0 - 100 %): ", 0, 100, 50, step=10, key="confidence_level")
+    st.write("#### Choose Confidence Level for Your Prediction (0 - 100 %):")
 
-    with st.columns([4,4,4])[0]:
-        value = st.slider("Choose Classifier's Decision Justification Level (0 - 100 %): ", 0, 100, 50, step=10, key="exp_justification_level")
+    col1, col2, col3, col4 = st.columns([0.4, 4, 0.4, 14])
+    with col1:
+        st.button(r"\-", on_click=decrease_slider)
+    with col2:
+        value = st.slider("", 0, 100, 50, step=10, key="confidence_level")
+    with col3:
+        st.button(r"\+", on_click=increase_slider)
+    
+    st.write("#### Choose Statisfaction Level for Classifier's Decision Explanation (0 - 100 %): ")
+
+    col1, col2, col3, col4 = st.columns([0.4, 4, 0.4, 14])
+    with col1:
+        st.button(r"\-", on_click=decrease_slider_jl, key ="minus jl slider")
+    with col2:
+        value = st.slider("", 0, 100, 50, step=10, key="exp_justification_level")
+    with col3:
+        st.button(r"\+", on_click=increase_slider_jl, key="plus jl slider")
+
 
     st.session_state.ai_exp_confidence_level[st.session_state.image_names[st.session_state.id]] = st.session_state.confidence_level
     st.session_state.ai_exp_justification_level[st.session_state.image_names[st.session_state.id]] = st.session_state.exp_justification_level

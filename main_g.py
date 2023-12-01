@@ -79,6 +79,8 @@ if __name__ == "__main__":
     st.session_state.setdefault("speciality_user", "")
     st.session_state.setdefault("end_questionnaire_ai", "")
     st.session_state.setdefault("end_questionnaire_ai_exp", "")
+    st.session_state.setdefault("confidence_level", 50)
+
 
     # for confidence levels and decision justification
     st.session_state.setdefault("ai_exp_confidence_level", {})

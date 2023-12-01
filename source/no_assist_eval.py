@@ -36,6 +36,13 @@ def _record_time_taken():
     st.session_state.time_taken[st.session_state.image_names[st.session_state.id]] = elapsed_time
     st.session_state.start_time = datetime.now()
 
+# Function to decrease the value of the counterfactual slider
+def decrease_slider():
+    st.session_state.confidence_level = max(0, st.session_state.confidence_level - 10)
+
+# Function to increase the value of the counterfactual slider
+def increase_slider():
+    st.session_state.confidence_level = min(100, st.session_state.confidence_level + 10)
 
 def no_assist_trial():
     """
@@ -107,8 +114,15 @@ def no_assist_trial():
     # Store user prediction in session state
     st.session_state.no_assist_trial[st.session_state.image_names[st.session_state.id]] = st.session_state.ai_pred
 
-    with st.columns([4,4,4])[0]:
-        value = st.slider("Choose Confidence Level for Your Prediction (0 - 100 %): ", 0, 100, 50, step=10, key="confidence_level")
+    st.write("#### Choose Confidence Level for Your Prediction (0 - 100 %):")
+
+    col1, col2, col3, col4 = st.columns([0.4, 4, 0.4, 14])
+    with col1:
+        st.button(r"\-", on_click=decrease_slider)
+    with col2:
+        value = st.slider("", 0, 100, 50, step=10, key="confidence_level")
+    with col3:
+        st.button(r"\+", on_click=increase_slider)
 
     st.session_state.ai_no_confidence_level[st.session_state.image_names[st.session_state.id]] = st.session_state.confidence_level
 
