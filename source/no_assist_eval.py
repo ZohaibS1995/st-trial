@@ -114,7 +114,7 @@ def no_assist_trial():
     # Store user prediction in session state
     st.session_state.no_assist_trial[st.session_state.image_names[st.session_state.id]] = st.session_state.ai_pred
 
-    st.write("#### Choose Confidence Level for Your Prediction (0 - 100 %):")
+    st.write("### Choose Confidence Level for Your Prediction (0 - 100 %):")
 
     col1, col2, col3, col4 = st.columns([0.4, 4, 0.4, 14])
     with col1:
