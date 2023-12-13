@@ -135,7 +135,7 @@ def no_assist_trial():
 
 def _inject_style(style_str):
     """
-    Helper function to inject custom CSS styles into the Streamlit app.
+    Helper function to inject custom CSS styles into the Streamlit app. 
     """
     st.markdown(f"""<style>{style_str}</style>""", unsafe_allow_html=True)
 

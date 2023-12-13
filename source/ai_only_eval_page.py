@@ -173,4 +173,4 @@ def _display_model_prediction(predictions):
     if st.session_state.pred_mod_page1:
         val_w_k = predictions[int(st.session_state.image_names[st.session_state.id].split(".")[0])]
         st.markdown(f"#### The AI model prediction is :red[{val_w_k[0]}] with a probability of :red[{np.round(float(val_w_k[1].replace(',', '.')), 3)}]")
-        st.write("The cut-off value for PHLF prediction is set at 0.352 based on Youden's index.")
+        st.write("The cut-off value for PHLF prediction is set at 0.352 based on Youden's index. ")

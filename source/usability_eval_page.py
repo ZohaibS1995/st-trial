@@ -135,7 +135,7 @@ def usability_page():
 
     col1, col2, col3 = st.columns([4, 4, 4])
     with col1:
-        st.radio("3- Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="u_pred")
+        st.radio("3- Select your prediction of PHLF Risk ", ("High risk of PHLF", "Low risk of PHLF"), key="u_pred")
 
     st.session_state.usability_pred[f"{int(st.session_state.u_name[st.session_state.id]):03}.png"] = st.session_state.u_pred
 
