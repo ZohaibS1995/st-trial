@@ -66,6 +66,11 @@ def no_assist_trial():
 
     # Set current page number and display trial progress
     st.session_state.page_no = 13
+
+    # Next button
+    with st.columns([1,7,1])[2]:
+        button_next = st.button("Next", on_click=plus_one_no_assist, key="plus_one_no_assist")
+
     st.write(f"## Clinical Trial - No Assistance: {st.session_state.id+1}/{len(st.session_state.image_names)}")
     st.write("---")
 
@@ -126,9 +131,6 @@ def no_assist_trial():
 
     st.session_state.ai_no_confidence_level[st.session_state.image_names[st.session_state.id]] = st.session_state.confidence_level
 
-    # Next button
-    with st.columns([1,7,1])[2]:
-        button_next = st.button("Next", on_click=plus_one_no_assist, key="plus_one_no_assist")
     return
 
 def _inject_style(style_str):

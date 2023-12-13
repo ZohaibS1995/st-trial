@@ -73,6 +73,11 @@ def ai_trial():
 
     # Set current page number and display trial progress
     st.session_state.page_no = 2
+
+    # Next button
+    with st.columns([1,7,1])[2]:
+        button_next = st.button("Next", on_click=plus_one_ai, key="plus_one_ai")
+
     st.write(f"## Clinical Trial - AI Assistance: {st.session_state.id+1}/{len(st.session_state.image_names)}")
     st.write("---")
 
@@ -136,9 +141,7 @@ def ai_trial():
     # Store user prediction in session state
     st.session_state.ai_trial[st.session_state.image_names[st.session_state.id]] = st.session_state.ai_pred
 
-    # Next button
-    with st.columns([1,7,1])[2]:
-        button_next = st.button("Next", on_click=plus_one_ai, key="plus_one_ai")
+
     return
 
 def _inject_style(style_str):
@@ -170,4 +173,4 @@ def _display_model_prediction(predictions):
     if st.session_state.pred_mod_page1:
         val_w_k = predictions[int(st.session_state.image_names[st.session_state.id].split(".")[0])]
         st.markdown(f"#### The AI model prediction is :red[{val_w_k[0]}] with a probability of :red[{np.round(float(val_w_k[1].replace(',', '.')), 3)}]")
-        st.write("The cut-off value for PHLF prediction is set at 0.35 based on Youden's index.")
+        st.write("The cut-off value for PHLF prediction is set at 0.352 based on Youden's index.")

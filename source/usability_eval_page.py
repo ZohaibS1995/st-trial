@@ -70,6 +70,10 @@ def usability_page():
     </style>""", unsafe_allow_html=True)
 
     st.session_state.page_no = 1
+    col1, col2, col3 = st.columns([1, 7, 1])
+    with col3:
+        button_next = st.button("Next", on_click=question_page, key="q_page")
+
     st.write(f"## Usability Trial: {st.session_state.id+1}/6")
     st.write("---")
 
@@ -134,10 +138,6 @@ def usability_page():
         st.radio("3- Select your prediction of PHLF Risk", ("High risk of PHLF", "Low risk of PHLF"), key="u_pred")
 
     st.session_state.usability_pred[f"{int(st.session_state.u_name[st.session_state.id]):03}.png"] = st.session_state.u_pred
-
-    col1, col2, col3 = st.columns([1, 7, 1])
-    with col3:
-        button_next = st.button("Next", on_click=question_page, key="q_page")
 
     return
 
