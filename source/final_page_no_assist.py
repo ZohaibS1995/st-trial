@@ -47,7 +47,7 @@ def final_page_no_assist():
     keys_t = list(st.session_state.time_taken.keys())
     values_t = list(st.session_state.time_taken.values())
     dict_time = {str(key): str(value) for key, value in zip(keys_t, values_t)}
-    doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document("ai_trial_time")
+    doc_ref = st.session_state["db"].collection(st.session_state["name_user"]).document("no_ai_trial_time")
     doc_ref.set(dict_time)
 
     # Saving profile information
