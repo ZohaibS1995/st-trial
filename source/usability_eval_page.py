@@ -269,7 +269,7 @@ def system_causability_scale():
         st.session_state.radio1, st.session_state.radio2, st.session_state.radio3, 
         st.session_state.radio4, st.session_state.radio5,
         st.session_state.radio6, st.session_state.radio7, st.session_state.radio8, 
-        st.session_state.radio9
+        st.session_state.radio9, st.session_state.radio10
     ]
 
     # Display "Next" button
